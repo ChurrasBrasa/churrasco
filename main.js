@@ -20,3 +20,55 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+
+
+/*agr nois usa isso aq*/
+const cards = document.querySelectorAll(".card-info");
+
+cards.forEach((card) =>{
+
+    card.addEventListener("click",()=>{
+
+        card.style.transform = "scale(0.9)";
+
+        setTimeout(()=>{
+            card.style.transform = "scale(1)";
+        },150);
+
+    });
+
+});
+
+
+
+let total = 0;
+
+function adicionar(nome,preco){
+
+let carrinho =
+document.getElementById("carrinho");
+
+
+let item = document.createElement("p");
+
+item.innerHTML =
+nome + " = R$" + preco;
+
+carrinho.appendChild(item);
+
+total += preco;
+
+document.getElementById("total")
+.innerHTML =
+"R$ "+ total.toFixed(2);
+
+}
+
+
+
+
+
+
+
+

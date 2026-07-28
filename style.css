@@ -122,7 +122,7 @@ header{
 }
 
 header.rolagem{
-    background-color: #fff;
+    background-color: #0e0d0d;
     padding: 12px 0;
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
@@ -250,4 +250,353 @@ header.rolagem .contato-btn{
     header{ padding: 14px 0; }
     .banner{ padding-top: 80px; }
     .cta-pedido{ margin-top: 18px; }
+}
+
+
+
+
+/*Agr o outro coisa com a carne e hora*/
+
+.informacoes{
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+.card-info{
+    background:#ff0000af;
+    color:white;
+    width:220px;
+    padding:10px;
+    border-radius:50px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    box-shadow:
+    0 0 15px rgb(161, 12, 12);
+
+    transition:0.3s;
+}
+
+.card-info:hover{
+    transform:scale(1.05);
+}
+
+.card-info img{
+    width:50px;
+}
+
+.card-info h3{
+    margin:0;
+    font-size:22px;
+}
+
+.card-info p{
+    margin:0;
+    font-size:18px;
+    font-weight:bold;
+}
+
+
+@media(max-width:768px){
+
+    .informacoes{
+        gap:10px;
+    }
+
+    .card-info{
+        width:105px;
+        padding:10px;
+        border-radius:20px;
+        gap:8px;
+    }
+
+    .card-info img{
+        width:30px;
+    }
+
+    .card-info h3{
+        font-size:12px;
+    }
+
+    .card-info p{
+        font-size:14px;
+    }
+
+}
+
+
+
+
+
+.cardapio{
+    text-align: center;
+    padding: 90px 20px 80px;
+    color: white;
+}
+
+
+
+
+.titulo-cardapio{
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+    gap: 18px;
+}
+
+.titulo-cardapio img{
+    position: absolute;
+    width: 260px;
+    opacity: .12;
+}
+
+.titulo-cardapio h1{
+    position: relative;
+    font-size: clamp(3rem, 5vw, 5rem);
+    letter-spacing: 6px;
+    text-shadow: 0 0 20px rgba(255,0,0,.25);
+    margin: 0;
+}
+
+.cards-grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    gap: 32px;
+    justify-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card{
+    width: 100%;
+    max-width: 300px;
+    background: url('img/combro.png') center/cover no-repeat;
+    position: relative;
+    border: 1px solid rgba(214,40,40,0.24);
+    border-radius: 28px;
+    overflow: hidden;
+    color: white;
+    transition: transform .35s, box-shadow .35s, border-color .35s;
+    box-shadow: 0 18px 40px rgba(0,0,0,.22);
+    margin: 0 auto;
+}
+
+.card::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+}
+
+.card > *{
+    position: relative;
+    z-index: 1;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+    border-color: rgba(214,40,40,0.55);
+    box-shadow: 0 24px 50px rgba(0,0,0,.28);
+}
+
+.card img{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card h2{
+    margin: 0;
+    padding: 20px 22px 0;
+    font-size: 1.6rem;
+}
+
+.opcao{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 22px;
+    border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.opcao p{
+    font-size: 0.95rem;
+    margin: 0;
+    color: #eaeaea;
+}
+
+.opcao span{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffb07c;
+}
+
+.opcao button{
+    width: 40px;
+    height: 40px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff5f3c 0%, #d62828 100%);
+    color: white;
+    transition: transform .3s, box-shadow .3s, filter .3s;
+}
+
+.opcao button:hover{
+    transform: scale(1.08);
+    box-shadow: 0 10px 18px rgba(214,40,40,.32);
+    filter: brightness(1.02);
+}
+
+.combo{
+    max-width: 1080px;
+    margin: 80px auto 0;
+    padding: 32px 36px;
+    border-radius: 36px;
+    background: url('img/combro.png') center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+    min-height: 260px;
+}
+
+.combo::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+}
+
+.combo-layout{
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(220px, 260px) 2px minmax(320px, 1fr) auto;
+    align-items: start;
+    gap: 32px;
+    z-index: 1;
+    flex-wrap: wrap;
+}
+
+.combo-left{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.combo-title{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.combo-main{
+    color: #fff;
+    font-size: clamp(3rem, 4vw, 4.4rem);
+    font-weight: 900;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    line-height: 0.95;
+}
+
+.combo-special{
+    color: #ffb07c;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.combo-divider{
+    display: block;
+    width: 2px;
+    min-height: 220px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 2px;
+    justify-self: center;
+}
+
+.combo-middle{
+    display: flex;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.combo-items{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+}
+
+.combo-items p{
+    margin: 0;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.6;
+    text-shadow: 0 0 12px rgba(0,0,0,0.24);
+}
+
+.combo-items p::before{
+    content: "•";
+    margin-right: 10px;
+    color: #ffb07c;
+}
+
+.combo-action{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.combo-price{
+    color: #ffd95b;
+    font-size: clamp(2.6rem, 3vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.combo-add{
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffb63e 0%, #ff8a1c 100%);
+    color: #111;
+    font-size: 2rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.combo-add:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 18px 32px rgba(255,138,28,.35);
+}
+
+@media (max-width: 900px){
+    .combo-layout{
+        grid-template-columns: 1fr;
+    }
+    .combo-divider{
+        width: 100%;
+        height: 2px;
+    }
+    .combo-action{
+        justify-content: space-between;
+        width: 100%;
+    }
 }
