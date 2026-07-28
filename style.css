@@ -213,7 +213,7 @@ header.rolagem .contato-btn{
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    padding-top: 100px; /* espaço para header fixo */
+    padding-top: 100px; /* o negocio ali */
 }
 
 .banner::after{
@@ -230,17 +230,17 @@ header.rolagem .contato-btn{
     color: #fff;
     max-width: 900px;
     padding: 40px 20px;
-    margin-top: 140px; /* empurra o conteúdo para baixo */
+    margin-top: 140px; /* empurra o coisa pra baixo */
 }
 
-/* CTA principal centralizado um pouco abaixo do título */
+/* coiseia o principal*/
 .cta-pedido{
     margin-top: 60px;
     box-shadow: 0 12px 28px rgba(194, 36, 0, 0.18);
     font-size: 1.25rem;
 }
 
-/* Ajustes responsivos */
+/* Ajusts responsivos pra ver se funfa TIRAR DPSS SE NAO FUNFAR */
 @media (max-width: 768px){
     .menu1 nav ul{ display: none; }
     .interface{ padding: 0 14px; }
