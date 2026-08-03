@@ -1,0 +1,252 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:linear-gradient(180deg,#1f1f1f 0%,#252525 100%);
+    color:#fff;
+    min-height:100vh;
+    padding:50px 20px;
+    opacity:0;
+    transition:opacity .8s;
+}
+
+body.carregado{
+    opacity:1;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+/* Botão voltar */
+
+.voltar{
+    display:inline-block;
+    margin-bottom:50px;
+    padding:12px 24px;
+    border:2px solid rgba(255,255,255,.1);
+    border-radius:50px;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.voltar:hover{
+    background:#c22400;
+    border-color:#c22400;
+    transform:translateX(-5px);
+}
+
+/* Hero */
+
+.hero{
+    text-align:center;
+    margin-bottom:80px;
+}
+
+.hero h1{
+    font-size:clamp(3rem,5vw,4.5rem);
+    margin-bottom:25px;
+    text-shadow:0 0 18px rgba(194,36,0,.4);
+}
+
+.subtitulo{
+    max-width:900px;
+    margin:auto;
+    color:#d8d8d8;
+    font-size:1.15rem;
+    line-height:2;
+}
+
+/* Cards */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    margin-bottom:80px;
+}
+
+.card{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(194,36,0,.2);
+    border-radius:25px;
+    padding:35px 28px;
+    text-align:center;
+    transition:.35s;
+    backdrop-filter:blur(8px);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#c22400;
+    box-shadow:0 15px 35px rgba(194,36,0,.25);
+}
+
+.icone{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.icone img{
+    width:75px;
+    height:75px;
+    object-fit:contain;
+    transition:.35s;
+}
+
+.card:hover .icone img{
+    transform:rotate(8deg) scale(1.15);
+}
+
+.card h2{
+    color:#ff7b42;
+    margin-bottom:18px;
+    font-size:1.5rem;
+}
+
+.card p{
+    color:#d5d5d5;
+    line-height:1.8;
+    font-size:.95rem;
+}
+
+/* Informações */
+
+.informacoes{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(194,36,0,.2);
+    border-radius:30px;
+    padding:45px;
+    margin-bottom:60px;
+}
+
+.informacoes h2{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:2rem;
+    color:#fff;
+}
+
+.informacoes p{
+    color:#d5d5d5;
+    line-height:2;
+    text-align:center;
+    font-size:1rem;
+}
+
+/* WhatsApp */
+
+.whatsapp{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+
+    width:fit-content;
+    margin:auto;
+
+    padding:18px 40px;
+
+    text-decoration:none;
+    color:#fff;
+    font-weight:700;
+    font-size:1.1rem;
+
+    border-radius:999px;
+
+    background:linear-gradient(135deg,#25D366,#128C7E);
+
+    box-shadow:0 12px 28px rgba(37,211,102,.3);
+
+    transition:.3s;
+}
+
+.whatsapp:hover{
+    transform:translateY(-4px) scale(1.03);
+    box-shadow:0 20px 40px rgba(37,211,102,.45);
+}
+
+.whatsapp img{
+    width:32px;
+    transition:.3s;
+}
+
+.whatsapp:hover img{
+    transform:rotate(-10deg) scale(1.2);
+}
+
+/* Reveal */
+
+.reveal{
+    opacity:0;
+    transform:translateY(60px);
+    transition:1s;
+}
+
+.reveal.ativo{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Responsivo */
+
+@media(max-width:768px){
+
+    body{
+        padding:30px 15px;
+    }
+
+    .hero{
+        margin-bottom:50px;
+    }
+
+    .hero h1{
+        font-size:2.8rem;
+    }
+
+    .subtitulo{
+        font-size:1rem;
+        line-height:1.8;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:28px 22px;
+    }
+
+    .icone img{
+        width:60px;
+        height:60px;
+    }
+
+    .informacoes{
+        padding:30px 22px;
+    }
+
+    .informacoes h2{
+        font-size:1.7rem;
+    }
+
+    .whatsapp{
+        width:100%;
+        padding:16px;
+        font-size:1rem;
+    }
+
+}
