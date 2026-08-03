@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentários Churrasco na Brasa</title>
+
+    <link rel="stylesheet" href="comentarios.css">
+</head>
+<body>
+
+<div class="container">
+
+    <a href="index.html" class="btn-voltar">Voltar</a>
+
+    <h1> Comentários da Comunidade!</h1>
+
+    <div class="formulario">
+
+        <input
+            type="text"
+            id="nome"
+            placeholder="Seu nome">
+
+            <div class="avaliacao">
+
+    <span class="estrela" data-value="1">★</span>
+    <span class="estrela" data-value="2">★</span>
+    <span class="estrela" data-value="3">★</span>
+    <span class="estrela" data-value="4">★</span>
+    <span class="estrela" data-value="5">★</span>
+
+</div>
+
+        <textarea
+            id="mensagem"
+            placeholder="Digite seu comentário"></textarea>
+
+ <button class="floating-btn" id="btnEnviar">
+    ➤
+</button>
+
+    </div>
+
+    <div id="listaComentarios"></div>
+
+</div>
+
+<script type="module" src="comentarios.js"></script>
+
+</body>
+</html>

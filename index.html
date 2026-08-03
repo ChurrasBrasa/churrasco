@@ -19,10 +19,10 @@
         <nav class="menu1">
             <ul>
                 <li><a href="#" class="selected" aria-current="page">Home</a></li>
-                <li><a href="#">Cardápio</a></li>
+                <li><a href="#cardapio">Cardápio</a></li>
                 <li><a href="#">Sobre</a></li>
                 <li><a href="#">Eventos</a></li>
-                <li><a href="#">Comentários</a></li>
+                <li><a href="comentarios.html">Comentários</a></li>
             </ul>
         </nav>
         <div class="btn-contato">
@@ -68,89 +68,75 @@
 </div>
 
 
-<section class="cardapio">
-
+<section class="cardapio" id="cardapio">
+ 
     <hr>
-
-
+ 
     <div class="titulo-cardapio">
-        
         <img src="img/ops.png" alt="">
         <h1>CARDÁPIO</h1>
     </div>
-
+ 
     <div class="cards-grid">
+ 
         <div class="card">
             <h2>Contra Filé</h2>
             <img src="img/4.png" alt="Contra Filé">
             <div class="opcao">
-                <p>1/2 KG</p>
-                <span>R$40,00</span>
-                <button>+</button>
+                <p><strong>1/2 KG</strong><span class="serve">Serve 2 pessoas</span></p>
+                <span class="preco">R$40,00</span>
+                <button data-nome="Contra Filé 1/2 KG" data-preco="40">+</button>
             </div>
             <div class="opcao">
-                <p>1 KG</p>
-                <span>R$80,00</span>
-                <button>+</button>
+                <p><strong>1 KG</strong><span class="serve">Serve 3 pessoas</span></p>
+                <span class="preco">R$80,00</span>
+                <button data-nome="Contra Filé 1 KG" data-preco="80">+</button>
             </div>
         </div>
-
+ 
         <div class="card">
             <h2>Alcatra</h2>
             <img src="img/5.png" alt="Alcatra">
             <div class="opcao">
-                <p>1/2 KG</p>
-                <span>R$50,00</span>
-                <button>+</button>
+                <p><strong>1/2 KG</strong><span class="serve">Serve 2 pessoas</span></p>
+                <span class="preco">R$50,00</span>
+                <button data-nome="Alcatra 1/2 KG" data-preco="50">+</button>
             </div>
             <div class="opcao">
-                <p>1 KG</p>
-                <span>R$90,00</span>
-                <button>+</button>
+                <p><strong>1 KG</strong><span class="serve">Serve 3 pessoas</span></p>
+                <span class="preco">R$90,00</span>
+                <button data-nome="Alcatra 1 KG" data-preco="90">+</button>
             </div>
         </div>
-
-        <div class="card">
-            <h2>Maionese</h2>
-            <img src="img/maio.png" alt="Maionese">
-            <div class="opcao">
-                <p>500g</p>
-                <span>R$20,00</span>
-                <button>+</button>
+ 
+        <div class="card card--lista">
+            <h2>Mais Opções</h2>
+            <div class="opcao-lista">
+                <div class="opcao-item">
+                    <p><strong>500g</strong><span>Maionese</span></p>
+                    <span class="preco">R$20,00</span>
+                    <button data-nome="Maionese 500g" data-preco="20">+</button>
+                </div>
+                <div class="opcao-item">
+                    <p><strong>200g</strong><span>Farofa</span></p>
+                    <span class="preco">R$6,00</span>
+                    <button data-nome="Farofa 200g" data-preco="6">+</button>
+                </div>
+                <div class="opcao-item">
+                    <p><strong>100g</strong><span>Cebola Azeda</span></p>
+                    <span class="preco">R$5,00</span>
+                    <button data-nome="Cebola Azeda 100g" data-preco="5">+</button>
+                </div>
+                <div class="opcao-item">
+                    <p><strong>2L</strong><span>Refrigerante</span></p>
+                    <span class="preco">R$15,00</span>
+                    <button data-nome="Refrigerante 2L" data-preco="15">+</button>
+                </div>
             </div>
         </div>
-
-        <div class="card">
-            <h2>Farofa</h2>
-            <img src="img/6.png" alt="Farofa">
-            <div class="opcao">
-                <p>200g</p>
-                <span>R$6,00</span>
-                <button>+</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Cebola Azeda</h2>
-            <img src="img/7.png" alt="Cebola Azeda">
-            <div class="opcao">
-                <p>100g</p>
-                <span>R$5,00</span>
-                <button>+</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Refrigerante</h2>
-            <img src="img/Refri.png" alt="Refrigerante">
-            <div class="opcao">
-                <p>2 Litros</p>
-                <span>R$15,00</span>
-                <button>+</button>
-            </div>
-        </div>
+ 
     </div>
-
+ 
     <div class="combo">
         <div class="combo-layout">
             <div class="combo-left">
@@ -169,45 +155,34 @@
             </div>
             <div class="combo-action">
                 <span class="combo-price">R$120,00</span>
-                <button class="combo-add">+</button>
+                <button class="combo-add" data-nome="Combo Especial" data-preco="120">+</button>
             </div>
         </div>
     </div>
 </section>
-
-
-
-
-
-
+ 
+<section class="carrinho-wrap">
+ 
+    <div class="carrinho-box">
+        <h2 class="carrinho-title">Carrinho</h2>
+ 
+        <div id="carrinho" class="carrinho-itens">
+            <p class="carrinho-vazio">Seu carrinho está vazio. Adicione itens do cardápio acima!</p>
+        </div>
+ 
+        <div class="carrinho-total">
+            <span>Total:</span>
+            <span id="total">R$ 0,00</span>
+        </div>
+ 
+        <button class="btn-continuar">Continuar</button>
+    </div>
+ 
+    <div class="carrinho-imagem">
+        <img src="img/ops.png" alt="Churrasco na tábua">
+    </div>
+ 
 </section>
-
-<div class="carrinho">
-
-<h1>CARRINHO</h1>
-
-<div id="carrinho">
-
-</div>
-
-<h2>
-
-TOTAL:
-<span id="total">
-
-R$0,00
-
-</span>
-
-</h2>
-
-<button>
-
-CONTINUAR
-
-</button>
-
-</div>
 
 <script src="main.js"></script>
 </body>
