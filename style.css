@@ -5,6 +5,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html, body{
     height: 100%;
     background: linear-gradient(180deg, #1f1f1f 0%, #252525 100%);
@@ -117,14 +121,16 @@ header{
     top: 0;
     left: 0;
     z-index: 50;
-    transition: background-color .35s, padding .25s, box-shadow .25s;
+    transition: background .35s ease, padding .25s ease, box-shadow .25s ease;
     background: transparent;
 }
 
 header.rolagem{
-    background-color: #0e0d0d;
+    background: rgba(0,0,0,0.82);
     padding: 12px 0;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 header.rolagem a, header.rolagem i{

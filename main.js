@@ -1,6 +1,9 @@
 ﻿import { finalizarPedido as salvarPedido } from './pedidos.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('#header');
+    const menuLinks = document.querySelectorAll('.menu1 a');
+    const ctaPedido = document.querySelector('.pedido');
     const botoesAdicionar = document.querySelectorAll('[data-preco]');
     const btnContinuar = document.querySelector('.btn-continuar');
     const overlay = document.getElementById('overlay');
@@ -20,6 +23,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function cartTotal() {
         return cart.reduce((sum, item) => sum + item.preco * item.qtd, 0);
+    }
+
+    function setupHeaderScroll() {
+        if (!header) return;
+        function updateHeader() {
+            const scrollY = window.scrollY;
+            header.classList.toggle('rolagem', scrollY > 80);
+        }
+        updateHeader();
+        window.addEventListener('scroll', updateHeader);
+    }
+
+    function setupMenuLinks() {
+        if (!menuLinks.length) return;
+        menuLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href || !href.startsWith('#')) return;
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    }
+
+    function setupCtaPedido() {
+        if (!ctaPedido) return;
+        ctaPedido.addEventListener('click', () => {
+            const target = document.querySelector('#cardapio');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     }
 
     function updateContinueState() {
@@ -345,6 +379,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.combo-add').forEach(btn => btn.addEventListener('click', addCombo));
     if (btnContinuar) btnContinuar.addEventListener('click', openCheckout);
 
+    setupHeaderScroll();
+    setupMenuLinks();
+    setupCtaPedido();
     updateContinueState();
 
     window.openCheckout = openCheckout;
