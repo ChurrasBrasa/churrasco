@@ -349,14 +349,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const total = cartTotal() + (checkout.entrega === 'entrega' ? DELIVERY_FEE : 0);
         const checkoutData = {
-            nome: checkout.nome,
-            telefone: checkout.telefone,
-            endereco: checkout.endereco,
-            numero: checkout.numero,
-            bairro: checkout.bairro,
-            entrega: checkout.entrega,
-            pagamento: checkout.pagamento
-        };
+    nome: checkout.nome,
+    telefone: checkout.telefone,
+    endereco: checkout.endereco,
+    numero: checkout.numero,
+    bairro: checkout.bairro,
+    entrega: checkout.entrega,
+    carne: checkout.carne,
+    pagamento: checkout.pagamento
+};
 
         try {
             checkout.orderId = await salvarPedido(checkoutData, cart, total) || '';
@@ -364,10 +365,15 @@ document.addEventListener('DOMContentLoaded', () => {
             renderStep();
             cart = [];
             renderCart();
-        } catch (error) {
-            console.error(error);
-            alert('Erro ao enviar pedido. Tente novamente.');
-        }
+       } catch (error) {
+    console.error("Erro completo ao finalizar pedido:", error);
+
+    alert(
+        `Não foi possível finalizar o pedido.\n\n` +
+        `Código: ${error.code || "desconhecido"}\n` +
+        `Mensagem: ${error.message || "Erro desconhecido"}`
+    );
+}
     }
 
     function finishAndReset() {
@@ -387,7 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.querySelectorAll('.combo-add').forEach(btn => btn.addEventListener('click', addCombo));
     if (btnContinuar) btnContinuar.addEventListener('click', openCheckout);
 
     setupHeaderScroll();
@@ -408,3 +413,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderCart();
 });
+
