@@ -1,4 +1,4 @@
-import { db } from "./firebase.js";
+import { dbComentarios as db } from "./firebase.js";
 
 import {
     collection,

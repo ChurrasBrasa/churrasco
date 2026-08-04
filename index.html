@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Churrasco na Brasa</title>
-    <meta name="description" content="Churrasco na Brasa - sabor e tradição">
+    <meta name="description" content="Churrasco na Brasa - sabor e tradiÃ§Ã£o">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,10 +19,10 @@
         <nav class="menu1">
             <ul>
                 <li><a href="#" class="selected" aria-current="page">Home</a></li>
-                <li><a href="#cardapio">Cardápio</a></li>
+                <li><a href="#cardapio">CardÃ¡pio</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="eventos.html">Eventos</a></li>
-                <li><a href="comentarios.html">Comentários</a></li>
+                <li><a href="comentarios.html">ComentÃ¡rios</a></li>
             </ul>
         </nav>
         <div class="btn-contato">
@@ -34,7 +34,7 @@
 <section class="banner">
     <div class="banner-content">
         <button class="pedido cta-pedido">
-            <img src="img/fire.png" alt="fogo" class="icon-fire">Peça já!
+            <img src="img/fire.png" alt="fogo" class="icon-fire">PeÃ§a jÃ¡!
         </button>
     </div>
 </section>
@@ -45,7 +45,7 @@
         <img src="img/clock.png" alt="">
         <div>
             <h3>Todo Domingo</h3>
-            <p>9h às 15h</p>
+            <p>9h Ã s 15h</p>
         </div>
     </div>
 
@@ -61,7 +61,7 @@
         <img src="img/fast-delivery.png" alt="">
         <div>
             <h3>Entrega</h3>
-            <p>Rápida</p>
+            <p>RÃ¡pida</p>
         </div>
     </div>
 
@@ -74,23 +74,23 @@
  
     <div class="titulo-cardapio">
         <img src="img/ops.png" alt="">
-        <h1>CARDÁPIO</h1>
+        <h1>CARDÃPIO</h1>
     </div>
  
     <div class="cards-grid">
  
         <div class="card">
-            <h2>Contra Filé</h2>
-            <img src="img/4.png" alt="Contra Filé">
+            <h2>Contra FilÃ©</h2>
+            <img src="img/4.png" alt="Contra FilÃ©">
             <div class="opcao">
                 <p><strong>1/2 KG</strong><span class="serve">Serve 2 pessoas</span></p>
                 <span class="preco">R$40,00</span>
-                <button data-nome="Contra Filé 1/2 KG" data-preco="40">+</button>
+                <button data-nome="Contra FilÃ© 1/2 KG" data-preco="40">+</button>
             </div>
             <div class="opcao">
                 <p><strong>1 KG</strong><span class="serve">Serve 3 pessoas</span></p>
                 <span class="preco">R$80,00</span>
-                <button data-nome="Contra Filé 1 KG" data-preco="80">+</button>
+                <button data-nome="Contra FilÃ© 1 KG" data-preco="80">+</button>
             </div>
         </div>
  
@@ -110,7 +110,7 @@
         </div>
  
         <div class="card card--lista">
-            <h2>Mais Opções</h2>
+            <h2>Mais OpÃ§Ãµes</h2>
             <div class="opcao-lista">
                 <div class="opcao-item">
                     <p><strong>500g</strong><span>Maionese</span></p>
@@ -167,7 +167,7 @@
         <h2 class="carrinho-title">Carrinho</h2>
  
         <div id="carrinho" class="carrinho-itens">
-            <p class="carrinho-vazio">Seu carrinho está vazio. Adicione itens do cardápio acima!</p>
+            <p class="carrinho-vazio">Seu carrinho estÃ¡ vazio. Adicione itens do cardÃ¡pio acima!</p>
         </div>
  
         <div class="carrinho-total">
@@ -179,11 +179,233 @@
     </div>
  
     <div class="carrinho-imagem">
-        <img src="img/ops.png" alt="Churrasco na tábua">
+        <img src="img/ops.png" alt="Churrasco na tÃ¡bua">
     </div>
  
 </section>
 
-<script src="main.js"></script>
+<!-- ==================== MODAL CHECKOUT ==================== -->
+
+<div class="overlay" id="overlay">
+
+    <div class="modal" id="modal">
+
+        <!-- CabeÃ§alho -->
+
+        <div class="modal-head">
+
+            <h2>Finalizar Pedido</h2>
+
+            <button class="close-modal" onclick="closeCheckout()">
+                âœ•
+            </button>
+
+        </div>
+
+        <!-- Barra de progresso -->
+
+        <div class="step-dots">
+
+            <span class="done"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+        <!-- ConteÃºdo (o JavaScript troca automaticamente) -->
+
+        <div id="checkout-content">
+
+            <!-- Resumo -->
+
+            <div class="mini-summary">
+
+                <div class="row">
+                    <span>Alcatra 1kg</span>
+                    <span>R$ 90,00</span>
+                </div>
+
+                <div class="row">
+                    <span>Farofa</span>
+                    <span>R$ 6,00</span>
+                </div>
+
+                <div class="row total">
+                    <span>Total</span>
+                    <span>R$ 96,00</span>
+                </div>
+
+            </div>
+
+            <!-- Entrega -->
+
+            <div class="choice selected" data-group="entrega">
+
+                <div>
+
+                    <div class="lbl">
+                        Entrega
+                    </div>
+
+                    <div class="sub">
+                        Receber em casa
+                    </div>
+
+                </div>
+
+                <div class="radio"></div>
+
+            </div>
+
+            <div class="choice" data-group="entrega">
+
+                <div>
+
+                    <div class="lbl">
+                        Retirar no Local
+                    </div>
+
+                    <div class="sub">
+                        Buscar na churrascaria
+                    </div>
+
+                </div>
+
+                <div class="radio"></div>
+
+            </div>
+
+            <!-- Dados -->
+
+            <div class="field">
+
+                <label>Nome</label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Digite seu nome">
+
+            </div>
+
+            <div class="field">
+
+                <label>Telefone</label>
+
+                <input
+                    type="tel"
+                    id="telefone"
+                    placeholder="(42) 99999-9999">
+
+            </div>
+
+            <div class="field">
+
+                <label>EndereÃ§o</label>
+
+                <input
+                    type="text"
+                    id="endereco"
+                    placeholder="Rua...">
+
+            </div>
+
+            <div class="row2">
+
+                <div class="field">
+
+                    <label>NÃºmero</label>
+
+                    <input
+                        type="text"
+                        id="numero">
+
+                </div>
+
+                <div class="field">
+
+                    <label>Bairro</label>
+
+                    <input
+                        type="text"
+                        id="bairro">
+
+                </div>
+
+            </div>
+
+            <!-- Pagamento -->
+
+            <h3 style="margin-top:25px;">
+                Forma de Pagamento
+            </h3>
+
+            <div class="choice selected" data-group="pagamento">
+
+                <div class="lbl">
+                    PIX
+                </div>
+
+                <div class="radio"></div>
+
+            </div>
+
+            <div class="choice" data-group="pagamento">
+
+                <div class="lbl">
+                    Dinheiro
+                </div>
+
+                <div class="radio"></div>
+
+            </div>
+
+            <div class="choice" data-group="pagamento">
+
+                <div class="lbl">
+                    CartÃ£o de DÃ©bito
+                </div>
+
+                <div class="radio"></div>
+
+            </div>
+
+            <div class="choice" data-group="pagamento">
+
+                <div class="lbl">
+                    CartÃ£o de CrÃ©dito
+                </div>
+
+                <div class="radio"></div>
+
+            </div>
+
+            <!-- BotÃ£o -->
+
+            <button
+                class="btn-primary"
+                onclick="finalizarPedido()">
+
+                FINALIZAR PEDIDO
+
+            </button>
+
+            <button
+                class="btn-ghost"
+                onclick="closeCheckout()">
+
+                Cancelar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>
