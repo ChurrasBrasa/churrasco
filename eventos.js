@@ -3,16 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;
     const header = document.querySelector("#header");
     const elementosReveal = document.querySelectorAll(".reveal");
-    const cards = document.querySelectorAll(".card");
-    const botaoWhatsApp = document.querySelector(".whatsapp");
-    const botaoTopo = document.querySelector(".voltar-topo");
+    const cards = document.querySelectorAll(".evento-card");
+    const botaoTopo = document.querySelector(".topo");
+    const areaBrasas = document.querySelector(".brasas");
+    const contadores = document.querySelectorAll("[data-contador]");
+    const botoesWhatsApp = document.querySelectorAll(
+        ".whatsapp, .btn-principal, .whatsapp-flutuante"
+    );
 
-    // Entrada suave da página
-    window.addEventListener("load", () => {
-        body.classList.add("carregado");
-    });
+    body.classList.add("carregado");
 
-    // Header escuro ao rolar
     function atualizarHeader() {
         if (!header) return;
 
@@ -26,183 +26,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener(
         "scroll",
-        atualizarHeader
+        atualizarHeader,
+        { passive: true }
     );
 
-    // Animação das seções ao aparecerem na tela
-    const observer = new IntersectionObserver(
-        (entries) => {
+    if ("IntersectionObserver" in window) {
 
-            entries.forEach((entry) => {
+        const observer = new IntersectionObserver(
+            (entries) => {
 
-                if (entry.isIntersecting) {
+                entries.forEach((entry) => {
+
+                    if (!entry.isIntersecting) return;
+
                     entry.target.classList.add("ativo");
-
                     observer.unobserve(entry.target);
-                }
 
-            });
+                });
 
-        },
-        {
-            threshold: 0.15
-        }
-    );
-
-    elementosReveal.forEach((elemento) => {
-        observer.observe(elemento);
-    });
-
-    // Cards aparecendo um de cada vez
-    cards.forEach((card, index) => {
-
-        card.style.setProperty(
-            "--delay",
-            `${index * 120}ms`
-        );
-
-    });
-
-    // Efeito de brilho seguindo o mouse nos cards
-    cards.forEach((card) => {
-
-        card.addEventListener(
-            "mousemove",
-            (event) => {
-
-                const area = card.getBoundingClientRect();
-
-                const x = event.clientX - area.left;
-                const y = event.clientY - area.top;
-
-                card.style.setProperty(
-                    "--mouse-x",
-                    `${x}px`
-                );
-
-                card.style.setProperty(
-                    "--mouse-y",
-                    `${y}px`
-                );
-
+            },
+            {
+                threshold: 0.14
             }
         );
 
-        card.addEventListener(
-            "mouseleave",
-            () => {
+        elementosReveal.forEach((elemento) => {
+            observer.observe(elemento);
+        });
 
-                card.style.removeProperty("--mouse-x");
-                card.style.removeProperty("--mouse-y");
+    } else {
 
-            }
-        );
-
-    });
-
-    // Efeito 3D suave nos cards
-    cards.forEach((card) => {
-
-        card.addEventListener(
-            "mousemove",
-            (event) => {
-
-                if (window.innerWidth <= 900) return;
-
-                const area = card.getBoundingClientRect();
-
-                const centroX = area.width / 2;
-                const centroY = area.height / 2;
-
-                const mouseX =
-                    event.clientX - area.left;
-
-                const mouseY =
-                    event.clientY - area.top;
-
-                const rotacaoX =
-                    ((mouseY - centroY) / centroY) * -4;
-
-                const rotacaoY =
-                    ((mouseX - centroX) / centroX) * 4;
-
-                card.style.transform = `
-                    perspective(900px)
-                    translateY(-8px)
-                    rotateX(${rotacaoX}deg)
-                    rotateY(${rotacaoY}deg)
-                `;
-
-            }
-        );
-
-        card.addEventListener(
-            "mouseleave",
-            () => {
-
-                card.style.transform = "";
-
-            }
-        );
-
-    });
-
-    // Texto do WhatsApp ao passar o mouse
-    if (botaoWhatsApp) {
-
-        const texto =
-            botaoWhatsApp.querySelector("span");
-
-        const textoOriginal =
-            texto?.textContent ||
-            "Solicitar orçamento pelo WhatsApp";
-
-        botaoWhatsApp.addEventListener(
-            "mouseenter",
-            () => {
-
-                if (texto) {
-                    texto.textContent =
-                        "Vamos organizar seu evento!";
-                }
-
-            }
-        );
-
-        botaoWhatsApp.addEventListener(
-            "mouseleave",
-            () => {
-
-                if (texto) {
-                    texto.textContent =
-                        textoOriginal;
-                }
-
-            }
-        );
-
-        // Pequena vibração no celular
-        botaoWhatsApp.addEventListener(
-            "click",
-            () => {
-
-                if ("vibrate" in navigator) {
-                    navigator.vibrate(60);
-                }
-
-            }
-        );
+        elementosReveal.forEach((elemento) => {
+            elemento.classList.add("ativo");
+        });
 
     }
 
-    // Botão voltar ao topo
+    cards.forEach((card, index) => {
+
+        card.style.transitionDelay =
+            `${Math.min(index * 90, 360)}ms`;
+
+        card.addEventListener("mousemove", (event) => {
+
+            if (window.innerWidth <= 900) return;
+
+            const area = card.getBoundingClientRect();
+
+            const x = event.clientX - area.left;
+            const y = event.clientY - area.top;
+
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+
+            const centroX = area.width / 2;
+            const centroY = area.height / 2;
+
+            const rotacaoX =
+                ((y - centroY) / centroY) * -4;
+
+            const rotacaoY =
+                ((x - centroX) / centroX) * 4;
+
+            card.style.transform = `
+                perspective(900px)
+                translateY(-8px)
+                rotateX(${rotacaoX}deg)
+                rotateY(${rotacaoY}deg)
+            `;
+
+        });
+
+        card.addEventListener("mouseleave", () => {
+
+            card.style.removeProperty("--mouse-x");
+            card.style.removeProperty("--mouse-y");
+            card.style.transform = "";
+
+        });
+
+    });
+
     function atualizarBotaoTopo() {
 
         if (!botaoTopo) return;
 
         botaoTopo.classList.toggle(
             "visivel",
-            window.scrollY > 500
+            window.scrollY > 550
         );
 
     }
@@ -211,41 +122,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener(
         "scroll",
-        atualizarBotaoTopo
+        atualizarBotaoTopo,
+        { passive: true }
     );
 
     if (botaoTopo) {
 
-        botaoTopo.addEventListener(
-            "click",
-            () => {
+        botaoTopo.addEventListener("click", () => {
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
-            }
-        );
+        });
 
     }
 
-    // Rolagem suave para links internos
-    const linksInternos =
-        document.querySelectorAll('a[href^="#"]');
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach((link) => {
 
-    linksInternos.forEach((link) => {
-
-        link.addEventListener(
-            "click",
-            (event) => {
+            link.addEventListener("click", (event) => {
 
                 const destino =
                     link.getAttribute("href");
 
-                if (!destino || destino === "#") {
-                    return;
-                }
+                if (!destino || destino === "#") return;
 
                 const elemento =
                     document.querySelector(destino);
@@ -259,9 +162,133 @@ document.addEventListener("DOMContentLoaded", () => {
                     block: "start"
                 });
 
+            });
+
+        });
+
+    botoesWhatsApp.forEach((botao) => {
+
+        botao.addEventListener("click", () => {
+
+            if ("vibrate" in navigator) {
+                navigator.vibrate(50);
             }
-        );
+
+        });
 
     });
+
+    function criarBrasas() {
+
+        if (!areaBrasas) return;
+
+        const totalBrasas =
+            window.innerWidth <= 700 ? 14 : 28;
+
+        for (let i = 0; i < totalBrasas; i += 1) {
+
+            const brasa = document.createElement("span");
+
+            const tamanho =
+                Math.random() * 4 + 2;
+
+            const duracao =
+                Math.random() * 6 + 6;
+
+            const atraso =
+                Math.random() * 8;
+
+            brasa.style.left =
+                `${Math.random() * 100}%`;
+
+            brasa.style.width =
+                `${tamanho}px`;
+
+            brasa.style.height =
+                `${tamanho}px`;
+
+            brasa.style.animationDuration =
+                `${duracao}s`;
+
+            brasa.style.animationDelay =
+                `${atraso * -1}s`;
+
+            brasa.style.opacity =
+                `${Math.random() * 0.6 + 0.35}`;
+
+            areaBrasas.appendChild(brasa);
+
+        }
+
+    }
+
+    criarBrasas();
+
+    function animarContador(elemento) {
+
+        const alvo =
+            Number(elemento.dataset.contador);
+
+        if (!Number.isFinite(alvo)) return;
+
+        const duracao = 900;
+        const inicio = performance.now();
+
+        function atualizar(tempoAtual) {
+
+            const progresso = Math.min(
+                (tempoAtual - inicio) / duracao,
+                1
+            );
+
+            const valor =
+                Math.floor(progresso * alvo);
+
+            elemento.textContent = valor;
+
+            if (progresso < 1) {
+                requestAnimationFrame(atualizar);
+            } else {
+                elemento.textContent = alvo;
+            }
+
+        }
+
+        requestAnimationFrame(atualizar);
+
+    }
+
+    if ("IntersectionObserver" in window) {
+
+        const observerContador =
+            new IntersectionObserver(
+                (entries) => {
+
+                    entries.forEach((entry) => {
+
+                        if (!entry.isIntersecting) return;
+
+                        animarContador(entry.target);
+                        observerContador.unobserve(
+                            entry.target
+                        );
+
+                    });
+
+                },
+                {
+                    threshold: 0.6
+                }
+            );
+
+        contadores.forEach((contador) => {
+            observerContador.observe(contador);
+        });
+
+    } else {
+
+        contadores.forEach(animarContador);
+
+    }
 
 });
