@@ -264,25 +264,135 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (current === 'revisao') {
-            modal.innerHTML = `
-                <div class="modal-head">
-                    <h2>Revisar pedido</h2>
-                    <button class="close-modal" type="button" onclick="closeCheckout()">×</button>
+
+    const enderecoRetirada =
+        'R. Antonio Lobascz, 140 - Loteamento Santo Antônio';
+
+    const linkMaps =
+        'https://maps.app.goo.gl/pbcAcTT1vLW6ndfx9';
+
+    const localRecebimento = checkout.entrega === 'entrega'
+        ? `
+            <div class="row">
+                <span>Entrega</span>
+
+                <span>
+                    ${checkout.endereco}, ${checkout.numero}
+                    <br>
+                    ${checkout.bairro}
+                </span>
+            </div>
+        `
+        : `
+            <div class="endereco-retirada">
+
+                <span class="titulo-retirada">
+                    Local para retirada
+                </span>
+
+                <p>
+                    ${enderecoRetirada}
+                </p>
+
+                <div class="acoes-endereco">
+
+                    <button
+                        type="button"
+                        class="btn-copiar-endereco"
+                        onclick="copiarEndereco()">
+
+                        📋 Copiar endereço
+
+                    </button>
+
+                    <a
+                        href="${linkMaps}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn-maps">
+
+                        📍 Abrir no Google Maps
+
+                    </a>
+
                 </div>
-                ${dots(4)}
-                ${miniSummary()}
-                <div class="mini-summary">
-                    <div class="row"><span>Cliente</span><span>${checkout.nome}</span></div>
-                    <div class="row"><span>Telefone</span><span>${checkout.telefone}</span></div>
-                    <div class="row"><span>${checkout.entrega === 'entrega' ? 'Entrega' : 'Retirada'}</span><span>${checkout.entrega === 'entrega' ? `${checkout.endereco}, ${checkout.numero}` : 'Buscar no local'}</span></div>
-                    <div class="row"><span>Ponto</span><span>${checkout.carne?.toUpperCase() || ''}</span></div>
-                    <div class="row"><span>Pagamento</span><span>${checkout.pagamento}</span></div>
-                </div>
-                <button class="btn-primary" onclick="finalizarPedido()">Finalizar Pedido</button>
-                <button class="btn-ghost" onclick="prevStep()">Voltar</button>
-            `;
-            return;
-        }
+
+                <small
+                    id="mensagem-copia"
+                    class="mensagem-copia">
+                </small>
+
+            </div>
+        `;
+
+    modal.innerHTML = `
+        <div class="modal-head">
+
+            <h2>Revisar pedido</h2>
+
+            <button
+                class="close-modal"
+                type="button"
+                onclick="closeCheckout()">
+
+                ×
+
+            </button>
+
+        </div>
+
+        ${dots(4)}
+
+        ${miniSummary()}
+
+        <div class="mini-summary">
+
+            <div class="row">
+                <span>Cliente</span>
+                <span>${checkout.nome}</span>
+            </div>
+
+            <div class="row">
+                <span>Telefone</span>
+                <span>${checkout.telefone}</span>
+            </div>
+
+            ${localRecebimento}
+
+            <div class="row">
+                <span>Ponto da carne</span>
+
+                <span>
+                    ${checkout.carne?.toUpperCase() || ''}
+                </span>
+            </div>
+
+            <div class="row">
+                <span>Pagamento</span>
+                <span>${checkout.pagamento}</span>
+            </div>
+
+        </div>
+
+        <button
+            class="btn-primary"
+            onclick="finalizarPedido()">
+
+            Finalizar Pedido
+
+        </button>
+
+        <button
+            class="btn-ghost"
+            onclick="prevStep()">
+
+            Voltar
+
+        </button>
+    `;
+
+    return;
+}
 
         if (current === 'confirmado') {
             modal.innerHTML = `
@@ -339,6 +449,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if (step > 0) step -= 1;
         renderStep();
     }
+
+    async function copiarEndereco() {
+
+    const endereco =
+        'R. Antonio Lobascz, 140 - Loteamento Santo Antônio';
+
+    const mensagem =
+        document.getElementById('mensagem-copia');
+
+    try {
+
+        await navigator.clipboard.writeText(endereco);
+
+        if (mensagem) {
+            mensagem.textContent =
+                'Endereço copiado com sucesso! ✓';
+        }
+
+    } catch (erro) {
+
+        console.error(
+            'Erro ao copiar o endereço:',
+            erro
+        );
+
+        if (mensagem) {
+            mensagem.textContent =
+                'Não foi possível copiar. Selecione o endereço manualmente.';
+        }
+
+    }
+}
 
     async function finalizarPedido() {
         if (cart.length === 0) {
@@ -410,6 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.submitContato = submitContato;
     window.finalizarPedido = finalizarPedido;
     window.finishAndReset = finishAndReset;
+    window.copiarEndereco = copiarEndereco;
 
     renderCart();
 });

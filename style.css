@@ -819,9 +819,7 @@ header.rolagem .contato-btn{
 
 
 
-/* =====================================================
-   MODAL CHECKOUT
-===================================================== */
+
 
 .overlay{
     position:fixed;
@@ -913,9 +911,7 @@ header.rolagem .contato-btn{
 
 }
 
-/* ==========================
-BARRA DE PROGRESSO
-========================== */
+
 
 .step-dots{
 
@@ -1223,9 +1219,7 @@ CONFIRMAÇÃO
 
 }
 
-/* ==========================
-RESPONSIVO
-========================== */
+
 
 @media(max-width:600px){
 
@@ -1239,6 +1233,102 @@ RESPONSIVO
 
         grid-template-columns:1fr;
 
+    }
+
+}
+
+/* Endereço para retirada */
+
+.endereco-retirada{
+    margin-top: 14px;
+    padding: 16px;
+    border: 1px solid rgba(255, 107, 28, .35);
+    border-radius: 14px;
+    background: rgba(255, 107, 28, .07);
+}
+
+.titulo-retirada{
+    display: block;
+    margin-bottom: 8px;
+    color: #f5c86c;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.endereco-retirada p{
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.acoes-endereco{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.btn-copiar-endereco,
+.btn-maps{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 44px;
+    padding: 10px 12px;
+
+    border-radius: 30px;
+    border: 1px solid #444;
+
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: .25s;
+}
+
+.btn-copiar-endereco{
+    background: #292929;
+}
+
+.btn-copiar-endereco:hover{
+    background: #353535;
+    border-color: #ff6b1c;
+}
+
+.btn-maps{
+    background: linear-gradient(
+        135deg,
+        #ff5d0d,
+        #c22400
+    );
+
+    border-color: transparent;
+}
+
+.btn-maps:hover{
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+.mensagem-copia{
+    display: block;
+    min-height: 20px;
+    margin-top: 10px;
+    color: #7ee787;
+    font-size: 12px;
+    text-align: center;
+}
+
+@media(max-width: 480px){
+
+    .acoes-endereco{
+        grid-template-columns: 1fr;
     }
 
 }
