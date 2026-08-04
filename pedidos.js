@@ -21,5 +21,6 @@ export async function finalizarPedido(checkout, cart, total) {
         criadoEm: serverTimestamp()
     };
 
-    await addDoc(collection(db, "pedidos"), pedido);
+    const docRef = await addDoc(collection(db, "pedidos"), pedido);
+    return docRef.id;
 }

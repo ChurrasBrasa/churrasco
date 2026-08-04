@@ -1,221 +1,362 @@
 ﻿import { finalizarPedido as salvarPedido } from './pedidos.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-    const header = document.querySelector('#header');
-    if (header) {
-        window.addEventListener('scroll', function () {
-            header.classList.toggle('rolagem', window.scrollY > 80);
-        });
-    }
-
-    const menuLinks = document.querySelectorAll('.menu1 a');
-    if (menuLinks.length) {
-        menuLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-
-                menuLinks.forEach(l => {
-                    l.classList.remove('selected');
-                    l.removeAttribute('aria-current');
-                });
-                this.classList.add('selected');
-                this.setAttribute('aria-current', 'page');
-
-                if (href === '#') {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else if (href && href.startsWith('#')) {
-                    e.preventDefault();
-                    const alvo = document.querySelector(href);
-                    if (alvo) alvo.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    }
-
-    const cards = document.querySelectorAll('.card-info');
-    cards.forEach((card) => {
-        card.addEventListener('click', () => {
-            card.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                card.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
-
+document.addEventListener('DOMContentLoaded', () => {
     const botoesAdicionar = document.querySelectorAll('[data-preco]');
     const btnContinuar = document.querySelector('.btn-continuar');
     const overlay = document.getElementById('overlay');
-    const choices = document.querySelectorAll('.choice[data-group]');
-    const resumo = document.querySelector('.mini-summary');
+    const modal = document.getElementById('modal');
+    const carrinhoEl = document.getElementById('carrinho');
+    const totalEl = document.getElementById('total');
 
     let cart = [];
-    let total = 0;
+    let checkout = {};
+    let step = 0;
+    const STEPS = ['entrega', 'contato', 'carne', 'pagamento', 'revisao', 'confirmado'];
+    const DELIVERY_FEE = 8.00;
 
-    function atualizarTotal() {
-        const totalEl = document.getElementById('total');
-        if (totalEl) {
-            totalEl.innerHTML = 'R$ ' + total.toFixed(2).replace('.', ',');
-        }
+    function money(value) {
+        return `R$ ${value.toFixed(2).replace('.', ',')}`;
     }
 
-    function mostrarVazioSeNecessario() {
-        const carrinho = document.getElementById('carrinho');
-        if (!carrinho) return;
-        if (carrinho.children.length === 0) {
-            const vazio = document.createElement('p');
-            vazio.className = 'carrinho-vazio';
-            vazio.textContent = 'Seu carrinho está vazio. Adicione itens do cardápio acima!';
-            carrinho.appendChild(vazio);
-        }
+    function cartTotal() {
+        return cart.reduce((sum, item) => sum + item.preco * item.qtd, 0);
     }
 
-    function atualizarResumo() {
-        if (!resumo) return;
-        resumo.innerHTML = '';
+    function updateContinueState() {
+        if (btnContinuar) btnContinuar.disabled = cart.length === 0;
+    }
+
+    function renderCart() {
+        if (!carrinhoEl || !totalEl) return;
 
         if (cart.length === 0) {
-            resumo.innerHTML = '<p>Seu carrinho está vazio.</p>';
-            return;
+            carrinhoEl.innerHTML = '<p class="carrinho-vazio">Seu carrinho está vazio. Adicione itens do cardápio acima!</p>';
+        } else {
+            carrinhoEl.innerHTML = cart.map(item => `
+                <div class="carrinho-item">
+                    <span>${item.nome} <small style="color:#ccc;">x${item.qtd}</small></span>
+                    <span class="carrinho-item-preco">${money(item.preco * item.qtd)}</span>
+                    <button class="remover-item" data-id="${item.id}" type="button">×</button>
+                </div>
+            `).join('');
+
+            carrinhoEl.querySelectorAll('.remover-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.dataset.id;
+                    changeQty(id, -1);
+                });
+            });
         }
 
-        cart.forEach(item => {
-            const row = document.createElement('div');
-            row.className = 'row';
-            row.innerHTML = `
-                <span>${item.nome}</span>
-                <span>R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
-            `;
-            resumo.appendChild(row);
-        });
-
-        const totalRow = document.createElement('div');
-        totalRow.className = 'row total';
-        totalRow.innerHTML = `
-            <span>Total</span>
-            <span>R$ ${total.toFixed(2).replace('.', ',')}</span>
-        `;
-        resumo.appendChild(totalRow);
+        totalEl.textContent = money(cartTotal());
+        updateContinueState();
     }
 
-    function getSelectedChoice(group) {
-        const selected = document.querySelector(`.choice[data-group="${group}"].selected`);
-        return selected ? selected.querySelector('.lbl')?.textContent.trim() : '';
+    function addItem(nome, preco) {
+        if (!nome || typeof preco !== 'number' || Number.isNaN(preco)) return;
+        const existing = cart.find(item => item.nome === nome);
+        if (existing) {
+            existing.qtd += 1;
+        } else {
+            cart.push({ id: `${Date.now()}-${Math.random()}`, nome, preco, qtd: 1 });
+        }
+        renderCart();
     }
 
-    function adicionar(nome, preco) {
-        const carrinho = document.getElementById('carrinho');
-        if (!carrinho) return;
+    function changeQty(id, delta) {
+        const item = cart.find(i => i.id === id);
+        if (!item) return;
+        item.qtd += delta;
+        if (item.qtd <= 0) cart = cart.filter(i => i.id !== id);
+        renderCart();
+    }
 
-        const vazio = carrinho.querySelector('.carrinho-vazio');
-        if (vazio) vazio.remove();
+    function addCombo() {
+        const comboBtn = document.querySelector('.combo-add');
+        const nome = comboBtn?.dataset.nome || 'Combo Especial';
+        const preco = parseFloat(comboBtn?.dataset.preco || '0');
+        addItem(nome, preco);
+    }
 
-        const itemData = {
-            id: `${Date.now()}-${Math.random()}`,
-            nome,
-            preco
+    function openCheckout() {
+        if (cart.length === 0) {
+            alert('Adicione itens ao carrinho antes de continuar.');
+            return;
+        }
+        checkout = {
+            entrega: null,
+            nome: '',
+            telefone: '',
+            endereco: '',
+            numero: '',
+            bairro: '',
+            carne: null,
+            pagamento: null,
+            orderId: ''
         };
-
-        cart.push(itemData);
-
-        const item = document.createElement('div');
-        item.className = 'carrinho-item';
-        item.dataset.id = itemData.id;
-        item.innerHTML = `
-            <span>${nome}</span>
-            <span class="carrinho-item-preco">R$ ${preco.toFixed(2).replace('.', ',')}</span>
-            <button class="remover-item" aria-label="Remover ${nome}" title="Remover">×</button>
-        `;
-
-        item.querySelector('.remover-item').addEventListener('click', () => {
-            total -= itemData.preco;
-            cart = cart.filter(i => i.id !== itemData.id);
-            item.remove();
-            atualizarTotal();
-            if (cart.length === 0) mostrarVazioSeNecessario();
-        });
-
-        carrinho.appendChild(item);
-        total += preco;
-        atualizarTotal();
-    }
-
-    function abrirCheckout() {
+        step = 0;
         overlay?.classList.add('open');
-        atualizarResumo();
+        renderStep();
     }
 
-    function fecharCheckout() {
+    function closeCheckout() {
         overlay?.classList.remove('open');
     }
 
-    botoesAdicionar.forEach((btn) => {
+    function dots(activeIndex) {
+        let html = '<div class="step-dots">';
+        for (let i = 0; i < 5; i += 1) {
+            html += `<span class="${i <= activeIndex ? 'done' : ''}"></span>`;
+        }
+        html += '</div>';
+        return html;
+    }
+
+    function miniSummary() {
+        let html = '<div class="mini-summary">';
+        cart.forEach(item => {
+            html += `<div class="row"><span>${item.nome} x${item.qtd}</span><span>${money(item.preco * item.qtd)}</span></div>`;
+        });
+        if (checkout.entrega === 'entrega') {
+            html += `<div class="row"><span>Taxa de entrega</span><span>${money(DELIVERY_FEE)}</span></div>`;
+        }
+        html += `<div class="row total"><span>Total</span><span>${money(cartTotal() + (checkout.entrega === 'entrega' ? DELIVERY_FEE : 0))}</span></div>`;
+        html += '</div>';
+        return html;
+    }
+
+    function renderStep() {
+        if (!modal) return;
+        const current = STEPS[step];
+        if (!current) return;
+
+        if (current === 'entrega') {
+            modal.innerHTML = `
+                <div class="modal-head">
+                    <h2>Finalizar Pedido</h2>
+                    <button class="close-modal" type="button" onclick="closeCheckout()">×</button>
+                </div>
+                ${dots(0)}
+                ${miniSummary()}
+                <div style="font-weight:700;margin-bottom:12px;">Como deseja receber?</div>
+                <div class="choice ${checkout.entrega === 'entrega' ? 'selected' : ''}" onclick="selectEntrega('entrega')">
+                    <div><div class="lbl">Entrega</div><div class="sub">Receber em casa</div></div>
+                    <div class="radio"></div>
+                </div>
+                <div class="choice ${checkout.entrega === 'retirar' ? 'selected' : ''}" onclick="selectEntrega('retirar')">
+                    <div><div class="lbl">Retirar no Local</div><div class="sub">Buscar na churrascaria</div></div>
+                    <div class="radio"></div>
+                </div>
+                <button class="btn-primary" ${checkout.entrega ? '' : 'disabled'} onclick="nextStep()">Continuar</button>
+                <button class="btn-ghost" onclick="closeCheckout()">Cancelar</button>
+            `;
+            return;
+        }
+
+        if (current === 'contato') {
+            const isEntrega = checkout.entrega === 'entrega';
+            modal.innerHTML = `
+                <div class="modal-head">
+                    <h2>${isEntrega ? 'Local de entrega' : 'Seus dados'}</h2>
+                    <button class="close-modal" type="button" onclick="closeCheckout()">×</button>
+                </div>
+                ${dots(1)}
+                ${miniSummary()}
+                <div class="field"><label>Nome</label><input id="f-nome" value="${checkout.nome}" placeholder="Digite seu nome"></div>
+                <div class="field"><label>Telefone</label><input id="f-telefone" value="${checkout.telefone}" placeholder="(42) 99999-9999"></div>
+                ${isEntrega ? `
+                    <div class="field"><label>Endereço</label><input id="f-endereco" value="${checkout.endereco}" placeholder="Rua, Av."></div>
+                    <div class="row2">
+                        <div class="field"><label>Número</label><input id="f-numero" value="${checkout.numero}" placeholder="Nº"></div>
+                        <div class="field"><label>Bairro</label><input id="f-bairro" value="${checkout.bairro}" placeholder="Bairro"></div>
+                    </div>
+                ` : ''}
+                <div class="field-error" id="f-error" style="display:none;">Preencha os campos obrigatórios.</div>
+                <button class="btn-primary" onclick="submitContato()">Continuar</button>
+                <button class="btn-ghost" onclick="prevStep()">Voltar</button>
+            `;
+            return;
+        }
+
+        if (current === 'carne') {
+            modal.innerHTML = `
+                <div class="modal-head">
+                    <h2>Ponto da carne</h2>
+                    <button class="close-modal" type="button" onclick="closeCheckout()">×</button>
+                </div>
+                ${dots(2)}
+                ${miniSummary()}
+                ${['mal passada', 'no ponto', 'bem passada'].map(option => `
+                    <div class="choice ${checkout.carne === option ? 'selected' : ''}" onclick="selectCarne('${option}')">
+                        <div class="lbl">${option.toUpperCase()}</div>
+                        <div class="radio"></div>
+                    </div>
+                `).join('')}
+                <button class="btn-primary" ${checkout.carne ? '' : 'disabled'} onclick="nextStep()">Continuar</button>
+                <button class="btn-ghost" onclick="prevStep()">Voltar</button>
+            `;
+            return;
+        }
+
+        if (current === 'pagamento') {
+            modal.innerHTML = `
+                <div class="modal-head">
+                    <h2>Pagamento</h2>
+                    <button class="close-modal" type="button" onclick="closeCheckout()">×</button>
+                </div>
+                ${dots(3)}
+                ${miniSummary()}
+                ${['PIX', 'Dinheiro', 'Cartão de Débito', 'Cartão de Crédito'].map(option => `
+                    <div class="choice ${checkout.pagamento === option ? 'selected' : ''}" onclick="selectPagamento('${option}')">
+                        <div class="lbl">${option}</div>
+                        <div class="radio"></div>
+                    </div>
+                `).join('')}
+                <button class="btn-primary" ${checkout.pagamento ? '' : 'disabled'} onclick="nextStep()">Continuar</button>
+                <button class="btn-ghost" onclick="prevStep()">Voltar</button>
+            `;
+            return;
+        }
+
+        if (current === 'revisao') {
+            modal.innerHTML = `
+                <div class="modal-head">
+                    <h2>Revisar pedido</h2>
+                    <button class="close-modal" type="button" onclick="closeCheckout()">×</button>
+                </div>
+                ${dots(4)}
+                ${miniSummary()}
+                <div class="mini-summary">
+                    <div class="row"><span>Cliente</span><span>${checkout.nome}</span></div>
+                    <div class="row"><span>Telefone</span><span>${checkout.telefone}</span></div>
+                    <div class="row"><span>${checkout.entrega === 'entrega' ? 'Entrega' : 'Retirada'}</span><span>${checkout.entrega === 'entrega' ? `${checkout.endereco}, ${checkout.numero}` : 'Buscar no local'}</span></div>
+                    <div class="row"><span>Ponto</span><span>${checkout.carne?.toUpperCase() || ''}</span></div>
+                    <div class="row"><span>Pagamento</span><span>${checkout.pagamento}</span></div>
+                </div>
+                <button class="btn-primary" onclick="finalizarPedido()">Finalizar Pedido</button>
+                <button class="btn-ghost" onclick="prevStep()">Voltar</button>
+            `;
+            return;
+        }
+
+        if (current === 'confirmado') {
+            modal.innerHTML = `
+                <div class="confirm-box">
+                    <div class="flame">🔥</div>
+                    <h2>Pedido enviado!</h2>
+                    <p>Estamos preparando sua carne.</p>
+                    <div class="order-id">Pedido ${checkout.orderId || ''}</div>
+                    <button class="btn-primary" onclick="finishAndReset()">Fechar</button>
+                </div>
+            `;
+            return;
+        }
+    }
+
+    function selectEntrega(value) {
+        checkout.entrega = value;
+        renderStep();
+    }
+
+    function selectCarne(value) {
+        checkout.carne = value;
+        renderStep();
+    }
+
+    function selectPagamento(value) {
+        checkout.pagamento = value;
+        renderStep();
+    }
+
+    function submitContato() {
+        checkout.nome = document.getElementById('f-nome')?.value.trim() || '';
+        checkout.telefone = document.getElementById('f-telefone')?.value.trim() || '';
+        if (checkout.entrega === 'entrega') {
+            checkout.endereco = document.getElementById('f-endereco')?.value.trim() || '';
+            checkout.numero = document.getElementById('f-numero')?.value.trim() || '';
+            checkout.bairro = document.getElementById('f-bairro')?.value.trim() || '';
+        }
+        const required = [checkout.nome, checkout.telefone];
+        if (checkout.entrega === 'entrega') required.push(checkout.endereco, checkout.numero, checkout.bairro);
+        const invalid = required.some(value => !value);
+        const errorEl = document.getElementById('f-error');
+        if (errorEl) errorEl.style.display = invalid ? 'block' : 'none';
+        if (invalid) return;
+        nextStep();
+    }
+
+    function nextStep() {
+        if (step < STEPS.length - 1) step += 1;
+        renderStep();
+    }
+
+    function prevStep() {
+        if (step > 0) step -= 1;
+        renderStep();
+    }
+
+    async function finalizarPedido() {
+        if (cart.length === 0) {
+            alert('Seu carrinho está vazio.');
+            closeCheckout();
+            return;
+        }
+
+        const total = cartTotal() + (checkout.entrega === 'entrega' ? DELIVERY_FEE : 0);
+        const checkoutData = {
+            nome: checkout.nome,
+            telefone: checkout.telefone,
+            endereco: checkout.endereco,
+            numero: checkout.numero,
+            bairro: checkout.bairro,
+            entrega: checkout.entrega,
+            pagamento: checkout.pagamento
+        };
+
+        try {
+            checkout.orderId = await salvarPedido(checkoutData, cart, total) || '';
+            step = STEPS.indexOf('confirmado');
+            renderStep();
+            cart = [];
+            renderCart();
+        } catch (error) {
+            console.error(error);
+            alert('Erro ao enviar pedido. Tente novamente.');
+        }
+    }
+
+    function finishAndReset() {
+        cart = [];
+        renderCart();
+        closeCheckout();
+        step = 0;
+    }
+
+    botoesAdicionar.forEach(btn => {
         btn.addEventListener('click', () => {
             const nome = btn.dataset.nome;
             const preco = parseFloat(btn.dataset.preco);
-            adicionar(nome, preco);
+            addItem(nome, preco);
             btn.style.transform = 'scale(1.25)';
             setTimeout(() => { btn.style.transform = 'scale(1)'; }, 120);
         });
     });
 
-    btnContinuar?.addEventListener('click', () => {
-        if (cart.length === 0) {
-            alert('Adicione itens ao carrinho antes de continuar.');
-            return;
-        }
-        abrirCheckout();
-    });
+    document.querySelectorAll('.combo-add').forEach(btn => btn.addEventListener('click', addCombo));
+    if (btnContinuar) btnContinuar.addEventListener('click', openCheckout);
 
-    choices.forEach(choice => {
-        choice.addEventListener('click', () => {
-            const group = choice.dataset.group;
-            if (!group) return;
-            document.querySelectorAll(`.choice[data-group="${group}"]`).forEach((item) => {
-                item.classList.remove('selected');
-            });
-            choice.classList.add('selected');
-        });
-    });
+    updateContinueState();
 
-    async function finalizarPedido() {
-        const nome = document.getElementById('nome')?.value.trim();
-        const telefone = document.getElementById('telefone')?.value.trim();
-        const endereco = document.getElementById('endereco')?.value.trim();
-        const numero = document.getElementById('numero')?.value.trim();
-        const bairro = document.getElementById('bairro')?.value.trim();
-        const entrega = getSelectedChoice('entrega');
-        const pagamento = getSelectedChoice('pagamento');
-
-        if (!nome || !telefone || !endereco || !numero || !bairro) {
-            alert('Preencha todos os campos do pedido.');
-            return;
-        }
-
-        if (cart.length === 0) {
-            alert('Seu carrinho está vazio. Adicione itens antes de finalizar.');
-            fecharCheckout();
-            return;
-        }
-
-        const checkout = { nome, telefone, endereco, numero, bairro, entrega, pagamento };
-
-        try {
-            await salvarPedido(checkout, cart, total);
-            alert('Pedido enviado com sucesso!');
-            cart = [];
-            total = 0;
-            const carrinho = document.getElementById('carrinho');
-            if (carrinho) carrinho.innerHTML = '';
-            mostrarVazioSeNecessario();
-            atualizarTotal();
-            fecharCheckout();
-        } catch (erro) {
-            console.error(erro);
-            alert('Erro ao enviar pedido. Tente novamente.');
-        }
-    }
-
-    window.closeCheckout = fecharCheckout;
+    window.openCheckout = openCheckout;
+    window.closeCheckout = closeCheckout;
+    window.nextStep = nextStep;
+    window.prevStep = prevStep;
+    window.selectEntrega = selectEntrega;
+    window.selectCarne = selectCarne;
+    window.selectPagamento = selectPagamento;
+    window.submitContato = submitContato;
     window.finalizarPedido = finalizarPedido;
+    window.finishAndReset = finishAndReset;
+
+    renderCart();
 });
