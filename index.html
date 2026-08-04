@@ -184,20 +184,20 @@
  
 </section>
 
-<!-- ==================== MODAL CHECKOUT ==================== -->
+
 
 <div class="overlay" id="overlay">
 
     <div class="modal" id="modal">
 
-        <!-- CabeÃ§alho -->
+     
 
         <div class="modal-head">
 
             <h2>Finalizar Pedido</h2>
 
             <button class="close-modal" onclick="closeCheckout()">
-                âœ•
+                X
             </button>
 
         </div>
@@ -214,7 +214,7 @@
 
         </div>
 
-        <!-- ConteÃºdo (o JavaScript troca automaticamente) -->
+
 
         <div id="checkout-content">
 
@@ -303,7 +303,7 @@
 
             <div class="field">
 
-                <label>EndereÃ§o</label>
+                <label>Endereço</label>
 
                 <input
                     type="text"
@@ -316,7 +316,7 @@
 
                 <div class="field">
 
-                    <label>NÃºmero</label>
+                    <label>Número</label>
 
                     <input
                         type="text"
@@ -365,7 +365,7 @@
             <div class="choice" data-group="pagamento">
 
                 <div class="lbl">
-                    CartÃ£o de DÃ©bito
+                    Carttão de Débito
                 </div>
 
                 <div class="radio"></div>
@@ -375,15 +375,14 @@
             <div class="choice" data-group="pagamento">
 
                 <div class="lbl">
-                    CartÃ£o de CrÃ©dito
+                    Cartão de Crédito
                 </div>
 
                 <div class="radio"></div>
 
             </div>
 
-            <!-- BotÃ£o -->
-
+            
             <button
                 class="btn-primary"
                 onclick="finalizarPedido()">
