@@ -110,8 +110,13 @@ html, body{
 
 header.rolagem .menu1 ul li a,
 header.rolagem .menu1 ul li a:link,
-header.rolagem .menu1 ul li a:visited{
+header.rolagem .menu1 ul li a:visited {
     color: #fff;
+}
+
+header.rolagem .menu1 ul li a.selected,
+header.rolagem .menu1 ul li a[aria-current="page"] {
+    color: #c22400;
 }
 
 header{
