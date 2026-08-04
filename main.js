@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         class="btn-copiar-endereco"
                         onclick="copiarEndereco()">
 
-                        📋 Copiar endereço
+                        Copiar endereço
 
                     </button>
 
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         rel="noopener noreferrer"
                         class="btn-maps">
 
-                        📍 Abrir no Google Maps
+                        Abrir no Google Maps
 
                     </a>
 
