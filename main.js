@@ -39,11 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!menuLinks.length) return;
         menuLinks.forEach(link => {
             const href = link.getAttribute('href');
-            if (!href || !href.startsWith('#')) return;
+            if (!href) return;
+            if (href !== '#' && !href.startsWith('#')) return;
             link.addEventListener('click', event => {
                 event.preventDefault();
-                const target = document.querySelector(href);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                menuLinks.forEach(item => {
+                    item.classList.remove('selected');
+                    item.removeAttribute('aria-current');
+                });
+                link.classList.add('selected');
+                link.setAttribute('aria-current', 'page');
+                if (href === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const target = document.querySelector(href);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
         });
     }
