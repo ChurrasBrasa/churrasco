@@ -12,7 +12,7 @@ import {
     increment
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
-// ELEMENTOS DA PÁGINA
+
 const nome = document.getElementById("nome");
 const mensagem = document.getElementById("mensagem");
 const lista = document.getElementById("listaComentarios");

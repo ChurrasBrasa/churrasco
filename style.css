@@ -1885,9 +1885,7 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
     }
 
 }
-/* =========================================================
-   ACOMPANHAMENTO DO PEDIDO
-========================================================= */
+
 
 .acompanhar-pedido{
     width:100%;
@@ -1939,9 +1937,7 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   LINHA DE STATUS
-========================================================= */
+
 
 .status-pedido{
     position:relative;
@@ -1971,9 +1967,7 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   ETAPAS
-========================================================= */
+
 
 .status-etapa{
     position:relative;
@@ -2025,9 +2019,7 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   ETAPA ATIVA
-========================================================= */
+
 
 .status-etapa.ativo{
     color:#fff;
@@ -2053,9 +2045,7 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   ETAPA CONCLUÍDA
-========================================================= */
+
 
 .status-etapa.concluido{
     color:#ddd;
@@ -2073,9 +2063,7 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   MENSAGEM DE STATUS
-========================================================= */
+
 
 .status-mensagem{
     margin-top:30px;
@@ -2108,9 +2096,7 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   EFEITO QUANDO STATUS MUDA
-========================================================= */
+
 
 @keyframes statusPulse{
 
@@ -2134,9 +2120,6 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   AVISO TIPO NOTIFICAÇÃO
-========================================================= */
 
 .status-toast{
     position:fixed;
@@ -2203,9 +2186,6 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
 }
 
 
-/* =========================================================
-   CELULAR
-========================================================= */
 
 @media(max-width:700px){
 
@@ -2272,6 +2252,1003 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
         bottom:20px;
 
         width:auto;
+    }
+
+}
+
+html,
+body{
+    max-width:100%;
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+}
+
+
+
+
+@media (max-width:1100px){
+
+    .interface,
+    .interfaceFlex,
+    .interface.flex{
+        width:calc(100% - 32px);
+        gap:14px;
+    }
+
+
+    /* HEADER */
+
+    header{
+        padding:12px 0;
+    }
+
+    .logo img,
+    header.rolagem .logo img{
+        width:58px;
+        height:58px;
+    }
+
+    .menu1{
+        display:flex;
+        min-width:0;
+    }
+
+    .menu1 ul{
+        gap:4px;
+        padding:5px;
+    }
+
+    .menu1 ul li a{
+        min-height:38px;
+        padding:7px 10px;
+        font-size:.78rem;
+    }
+
+    .contato-btn{
+        min-height:40px;
+        padding:8px 13px;
+        font-size:.78rem;
+    }
+
+
+    /* CARDÁPIO */
+
+    .cards-grid{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:22px;
+
+        max-width:850px;
+    }
+
+    .card:last-child{
+        grid-column:1 / -1;
+
+        width:min(100%,414px);
+
+        justify-self:center;
+    }
+
+
+    /* COMBO */
+
+    .combo{
+        width:min(850px,100%);
+
+        padding:28px;
+    }
+
+    .combo-layout{
+        grid-template-columns:
+            minmax(180px,220px)
+            2px
+            1fr;
+
+        gap:24px;
+    }
+
+    .combo-action{
+        grid-column:1 / -1;
+
+        width:100%;
+
+        justify-content:flex-end;
+
+        padding-top:12px;
+    }
+
+
+    /* CARRINHO */
+
+    .carrinho-wrap{
+        grid-template-columns:
+            minmax(0,1.2fr)
+            minmax(260px,.8fr);
+
+        gap:28px;
+    }
+
+}
+
+
+
+@media (max-width:850px){
+
+
+    header{
+        background:rgba(10,10,10,.94);
+
+        backdrop-filter:blur(14px);
+    }
+
+    header .interface,
+    header .interface.flex{
+        flex-wrap:wrap;
+
+        row-gap:8px;
+    }
+
+    .logo{
+        order:1;
+    }
+
+    .btn-contato{
+        order:2;
+
+        margin-left:auto;
+    }
+
+    .menu1{
+        order:3;
+
+        display:block;
+
+        width:100%;
+        flex-basis:100%;
+
+        overflow-x:auto;
+
+        padding-bottom:3px;
+
+        scrollbar-width:none;
+    }
+
+    .menu1::-webkit-scrollbar{
+        display:none;
+    }
+
+    .menu1 ul{
+        width:max-content;
+
+        min-width:100%;
+
+        justify-content:center;
+
+        padding:4px;
+
+        background:rgba(255,255,255,.025);
+    }
+
+    .menu1 ul li a,
+    .menu1 ul li a:link,
+    .menu1 ul li a:visited{
+        min-height:34px;
+
+        padding:6px 10px;
+
+        font-size:.75rem;
+    }
+
+
+    /* BANNER */
+
+    .banner{
+        min-height:100svh;
+
+        padding-top:125px;
+
+        background-position:center;
+    }
+
+    .banner-content{
+        width:100%;
+
+        margin-top:80px;
+
+        padding:30px 18px;
+    }
+
+    .pedido{
+        padding:15px 34px;
+
+        font-size:.95rem;
+    }
+
+    .cta-pedido{
+        margin-top:30px;
+    }
+
+
+    /* INFORMAÇÕES */
+
+    .informacoes{
+        width:calc(100% - 32px);
+
+        margin:25px auto 0;
+
+        gap:12px;
+
+        display:grid;
+
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+    }
+
+    .card-info{
+        width:100%;
+
+        min-height:86px;
+
+        padding:12px;
+
+        border-radius:18px;
+
+        justify-content:center;
+
+        gap:9px;
+    }
+
+    .card-info img{
+        width:34px;
+    }
+
+    .card-info h3{
+        font-size:.83rem;
+    }
+
+    .card-info p{
+        font-size:.75rem;
+    }
+
+
+    /* CARDÁPIO */
+
+    .cardapio{
+        padding:65px 16px 65px;
+    }
+
+    .cardapio hr{
+        margin-bottom:25px;
+    }
+
+    .titulo-cardapio{
+        margin-top:25px;
+        margin-bottom:50px;
+    }
+
+    .titulo-cardapio img{
+        width:200px;
+    }
+
+    .titulo-cardapio h1{
+        font-size:clamp(2.4rem,8vw,4rem);
+
+        letter-spacing:4px;
+    }
+
+    .cards-grid{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:16px;
+    }
+
+    .card{
+        border-radius:20px;
+    }
+
+    .card h2{
+        padding:17px;
+
+        font-size:1.3rem;
+    }
+
+    .card img{
+        height:155px;
+    }
+
+    .opcao,
+    .opcao-item{
+        grid-template-columns:
+            minmax(0,1fr)
+            auto
+            38px;
+
+        gap:8px;
+
+        padding:14px 15px;
+    }
+
+
+    /* COMBO */
+
+    .combo{
+        margin-top:50px;
+
+        padding:25px;
+
+        border-radius:24px;
+    }
+
+    .combo-layout{
+        grid-template-columns:1fr;
+
+        gap:20px;
+    }
+
+    .combo-left{
+        align-items:center;
+
+        text-align:center;
+    }
+
+    .combo-main{
+        font-size:3rem;
+
+        letter-spacing:.16em;
+    }
+
+    .combo-special{
+        font-size:2rem;
+    }
+
+    .combo-divider{
+        width:100%;
+        height:1px;
+        min-height:1px;
+    }
+
+    .combo-middle{
+        justify-content:center;
+    }
+
+    .combo-items{
+        max-width:420px;
+    }
+
+    .combo-action{
+        grid-column:auto;
+
+        justify-content:center;
+
+        gap:22px;
+    }
+
+
+    /* CARRINHO */
+
+    .carrinho-wrap{
+        grid-template-columns:1fr;
+
+        width:100%;
+
+        padding:0 16px 70px;
+
+        gap:22px;
+    }
+
+    .carrinho-imagem{
+        order:-1;
+
+        width:100%;
+
+        overflow:hidden;
+
+        border-radius:22px;
+
+        max-height:220px;
+    }
+
+    .carrinho-imagem img{
+        width:100%;
+
+        height:220px;
+        min-height:0;
+
+        object-fit:cover;
+    }
+
+    .carrinho-box{
+        padding:25px 22px;
+
+        border-radius:22px;
+    }
+
+
+    /* FOOTER */
+
+    .footer{
+        margin-top:70px;
+    }
+
+    .footer-container{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:30px;
+
+        padding:45px 24px;
+    }
+
+    .footer-dev{
+        grid-column:1 / -1;
+    }
+
+}
+
+
+
+
+@media (max-width:600px){
+
+    .interface,
+    .interfaceFlex,
+    .interface.flex{
+        width:calc(100% - 20px);
+    }
+
+
+    /* HEADER */
+
+    header,
+    header.rolagem{
+        padding:8px 0;
+    }
+
+    .logo img,
+    header.rolagem .logo img{
+        width:46px;
+        height:46px;
+    }
+
+    .contato-btn{
+        min-height:35px;
+
+        padding:7px 11px;
+
+        font-size:.7rem;
+    }
+
+    .menu1 ul{
+        justify-content:flex-start;
+
+        gap:2px;
+    }
+
+    .menu1 ul li a,
+    .menu1 ul li a:link,
+    .menu1 ul li a:visited{
+        min-height:32px;
+
+        padding:5px 9px;
+
+        font-size:.7rem;
+    }
+
+
+    /* BANNER */
+
+    .banner{
+        min-height:92svh;
+
+        padding-top:115px;
+
+        background-position:center center;
+    }
+
+    .banner-content{
+        margin-top:45px;
+
+        padding:20px 14px;
+    }
+
+    .pedido{
+        gap:8px;
+
+        padding:13px 24px;
+
+        font-size:.85rem;
+    }
+
+    .pedido .icon-fire{
+        width:20px;
+        height:20px;
+    }
+
+
+    /* INFORMAÇÕES */
+
+    .informacoes{
+        grid-template-columns:1fr;
+
+        width:calc(100% - 28px);
+
+        gap:9px;
+    }
+
+    .card-info{
+        min-height:65px;
+
+        justify-content:flex-start;
+
+        padding:10px 16px;
+
+        border-radius:16px;
+    }
+
+    .card-info img{
+        width:34px;
+    }
+
+    .card-info h3{
+        font-size:.85rem;
+    }
+
+    .card-info p{
+        font-size:.75rem;
+    }
+
+
+    /* CARDÁPIO */
+
+    .cardapio{
+        padding:50px 14px 55px;
+    }
+
+    .cardapio hr{
+        margin-bottom:18px;
+
+        border-top-width:2px;
+    }
+
+    .titulo-cardapio{
+        margin-top:20px;
+        margin-bottom:38px;
+    }
+
+    .titulo-cardapio img{
+        width:150px;
+    }
+
+    .titulo-cardapio h1{
+        font-size:2.45rem;
+
+        letter-spacing:3px;
+    }
+
+    .cards-grid{
+        grid-template-columns:1fr;
+
+        gap:18px;
+    }
+
+    .card:last-child{
+        grid-column:auto;
+
+        width:100%;
+    }
+
+    .card{
+        max-width:440px;
+
+        border-radius:18px;
+    }
+
+    .card img{
+        height:165px;
+    }
+
+    .card h2{
+        padding:16px;
+
+        font-size:1.25rem;
+    }
+
+    .opcao,
+    .opcao-item{
+        grid-template-columns:
+            minmax(0,1fr)
+            auto
+            36px;
+
+        gap:7px;
+
+        padding:13px 14px;
+    }
+
+    .opcao p,
+    .opcao-item p{
+        font-size:.82rem;
+    }
+
+    .opcao p strong,
+    .opcao-item p strong{
+        font-size:.92rem;
+    }
+
+    .opcao span.preco,
+    .opcao-item span.preco{
+        font-size:.88rem;
+    }
+
+    .opcao button,
+    .opcao-item button{
+        width:36px;
+        height:36px;
+
+        font-size:20px;
+    }
+
+
+    /* COMBO */
+
+    .combo{
+        width:100%;
+
+        margin-top:35px;
+
+        padding:22px 17px;
+
+        border-radius:20px;
+    }
+
+    .combo-main{
+        font-size:2.25rem;
+
+        letter-spacing:.12em;
+    }
+
+    .combo-special{
+        font-size:1.55rem;
+    }
+
+    .combo-items{
+        gap:8px;
+    }
+
+    .combo-items p{
+        font-size:.88rem;
+
+        line-height:1.45;
+    }
+
+    .combo-action{
+        justify-content:space-between;
+
+        width:100%;
+    }
+
+    .combo-price{
+        font-size:2.2rem;
+    }
+
+    .combo-add{
+        width:52px;
+        height:52px;
+
+        font-size:1.7rem;
+    }
+
+
+
+
+    .carrinho-wrap{
+        padding:0 14px 55px;
+    }
+
+    .carrinho-imagem{
+        display:none;
+    }
+
+    .carrinho-box{
+        padding:21px 17px;
+
+        border-width:1px;
+
+        border-radius:18px;
+    }
+
+    .carrinho-title{
+        font-size:1.5rem;
+
+        margin-bottom:18px;
+    }
+
+    .carrinho-item{
+        grid-template-columns:
+            minmax(0,1fr)
+            auto
+            26px;
+
+        gap:7px;
+
+        font-size:.82rem;
+    }
+
+    .carrinho-item-preco{
+        font-size:.8rem;
+    }
+
+    .carrinho-total{
+        font-size:1rem;
+    }
+
+    .carrinho-total span:last-child{
+        font-size:1.2rem;
+    }
+
+    .btn-continuar{
+        padding:13px;
+
+        font-size:.88rem;
+    }
+
+
+    /* CHECKOUT */
+
+    .overlay{
+        align-items:flex-end;
+
+        padding:0;
+    }
+
+    .modal{
+        max-width:none;
+
+        width:100%;
+
+        max-height:92svh;
+
+        border-radius:
+            22px 22px 0 0;
+
+        padding:
+            22px 17px
+            calc(22px + env(safe-area-inset-bottom));
+    }
+
+    .modal-head{
+        margin-bottom:15px;
+    }
+
+    .modal-head h2{
+        font-size:1.3rem;
+    }
+
+    .step-dots{
+        gap:5px;
+
+        margin-bottom:18px;
+    }
+
+    .mini-summary{
+        padding:12px;
+
+        margin-bottom:15px;
+
+        font-size:.78rem;
+    }
+
+    .mini-summary .row{
+        gap:12px;
+    }
+
+    .mini-summary .row span:last-child{
+        text-align:right;
+    }
+
+    .choice{
+        padding:13px 4px;
+    }
+
+    .lbl{
+        font-size:.88rem;
+    }
+
+    .sub{
+        font-size:.72rem;
+    }
+
+    .row2{
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+    }
+
+    .field label{
+        font-size:.7rem;
+    }
+
+    .field input{
+        font-size:16px;
+    }
+
+    .btn-primary,
+    .btn-ghost{
+        min-height:46px;
+    }
+
+
+    /* ACOMPANHAMENTO */
+
+    .acompanhar-pedido{
+        padding:35px 14px 50px;
+    }
+
+    .acompanhar-box{
+        border-radius:18px;
+
+        padding:21px 16px;
+    }
+
+    .acompanhar-box h2{
+        font-size:1.5rem;
+
+        margin-bottom:23px;
+    }
+
+    .status-pedido{
+        grid-template-columns:1fr;
+
+        gap:0;
+    }
+
+    .status-pedido::before{
+        left:22px;
+
+        top:22px;
+        bottom:22px;
+
+        right:auto;
+
+        width:2px;
+        height:auto;
+    }
+
+    .status-etapa{
+        min-height:62px;
+
+        flex-direction:row;
+
+        justify-content:flex-start;
+
+        gap:13px;
+
+        text-align:left;
+
+        font-size:.78rem;
+    }
+
+    .status-etapa > span:first-child{
+        width:44px;
+        height:44px;
+
+        font-size:1rem;
+    }
+
+    .status-mensagem{
+        margin-top:15px;
+
+        padding:13px;
+
+        font-size:.8rem;
+
+        min-height:auto;
+    }
+
+    .status-toast{
+        left:12px;
+        right:12px;
+
+        bottom:12px;
+
+        width:auto;
+
+        padding:14px 16px;
+    }
+
+
+ 
+    .footer{
+        margin-top:50px;
+    }
+
+    .footer-container{
+        grid-template-columns:1fr;
+
+        padding:38px 18px;
+
+        gap:28px;
+
+        text-align:center;
+    }
+
+    .footer-logo img{
+        width:72px;
+        height:72px;
+    }
+
+    .footer-logo p{
+        max-width:400px;
+
+        margin:0 auto;
+    }
+
+    .footer-links{
+        align-items:center;
+    }
+
+    .footer-dev{
+        grid-column:auto;
+
+        padding:20px 16px;
+
+        text-align:left;
+    }
+
+    .footer-dev h3{
+        text-align:center;
+    }
+
+    .footer-dev a{
+        justify-content:center;
+    }
+
+    .footer-bottom{
+        padding:16px 12px;
+
+        font-size:.75rem;
+    }
+
+}
+
+
+
+
+@media (max-width:390px){
+
+    .menu1 ul li a,
+    .menu1 ul li a:link,
+    .menu1 ul li a:visited{
+        padding:5px 8px;
+
+        font-size:.66rem;
+    }
+
+    .titulo-cardapio h1{
+        font-size:2.1rem;
+    }
+
+    .opcao,
+    .opcao-item{
+        grid-template-columns:
+            minmax(0,1fr)
+            auto
+            34px;
+
+        padding:12px 10px;
+    }
+
+    .combo-price{
+        font-size:1.9rem;
+    }
+
+    .row2{
+        grid-template-columns:1fr;
     }
 
 }
