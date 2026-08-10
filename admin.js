@@ -554,37 +554,6 @@ async function atualizarStatus(pedidoId, novoStatus) {
 
 }
 
-    try {
-
-        await updateDoc(
-            doc(
-                dbPedidos,
-                "pedidos",
-                pedidoId
-            ),
-            {
-                status: novoStatus
-            }
-        );
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao alterar status:",
-            erro
-        );
-
-        alert(
-            "Não foi possível alterar o status."
-        );
-
-    }
-
-
-
-
-
-
 function renderizarPedidos() {
 
     recebidosEl.innerHTML = "";
