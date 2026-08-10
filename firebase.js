@@ -1,5 +1,12 @@
 ﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
+import {
+    getFirestore
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
+import {
+    getAuth
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 
 const firebaseConfigComentarios = {
     apiKey: "AIzaSyAdgIPjo0djQEUv3Qo-P1A2RPNWhhWITWI",
@@ -24,3 +31,4 @@ const appPedidos = initializeApp(firebaseConfigPedidos, "pedidosApp");
 
 export const dbComentarios = getFirestore(appComentarios);
 export const dbPedidos = getFirestore(appPedidos);
+export const authPedidos = getAuth(appPedidos);

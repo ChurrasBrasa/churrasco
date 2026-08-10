@@ -1885,3 +1885,393 @@ header.rolagem .menu1 ul li a:not(.selected):not([aria-current="page"]){
     }
 
 }
+/* =========================================================
+   ACOMPANHAMENTO DO PEDIDO
+========================================================= */
+
+.acompanhar-pedido{
+    width:100%;
+    padding:60px 20px 80px;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(194,36,0,.14),
+            transparent 45%
+        );
+}
+
+.acompanhar-box{
+    width:min(800px,100%);
+    margin:0 auto;
+
+    background:#1d1d1d;
+
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+
+    padding:32px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35),
+        0 0 35px rgba(194,36,0,.08);
+}
+
+.acompanhar-label{
+    display:block;
+
+    color:#ff8a58;
+
+    font-size:.78rem;
+    font-weight:800;
+
+    letter-spacing:2px;
+    text-transform:uppercase;
+
+    margin-bottom:8px;
+}
+
+.acompanhar-box h2{
+    font-size:clamp(1.7rem,4vw,2.6rem);
+
+    margin-bottom:32px;
+
+    color:#fff;
+}
+
+
+/* =========================================================
+   LINHA DE STATUS
+========================================================= */
+
+.status-pedido{
+    position:relative;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    gap:12px;
+}
+
+.status-pedido::before{
+    content:"";
+
+    position:absolute;
+
+    top:25px;
+    left:10%;
+    right:10%;
+
+    height:3px;
+
+    background:#3a3a3a;
+
+    border-radius:999px;
+
+    z-index:0;
+}
+
+
+/* =========================================================
+   ETAPAS
+========================================================= */
+
+.status-etapa{
+    position:relative;
+    z-index:1;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+    gap:10px;
+
+    color:#777;
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.status-etapa > span:first-child{
+    width:52px;
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#292929;
+
+    border:2px solid #444;
+
+    color:#999;
+
+    font-size:1.2rem;
+
+    transition:
+        background .3s,
+        border-color .3s,
+        color .3s,
+        box-shadow .3s,
+        transform .3s;
+}
+
+
+/* =========================================================
+   ETAPA ATIVA
+========================================================= */
+
+.status-etapa.ativo{
+    color:#fff;
+}
+
+.status-etapa.ativo > span:first-child{
+    background:
+        linear-gradient(
+            135deg,
+            #ff5100,
+            #c22400
+        );
+
+    border-color:#ff7140;
+
+    color:#fff;
+
+    box-shadow:
+        0 0 0 6px rgba(194,36,0,.12),
+        0 0 20px rgba(255,81,0,.30);
+
+    transform:scale(1.08);
+}
+
+
+/* =========================================================
+   ETAPA CONCLUÍDA
+========================================================= */
+
+.status-etapa.concluido{
+    color:#ddd;
+}
+
+.status-etapa.concluido > span:first-child{
+    background:#1e8f4d;
+
+    border-color:#2cbf68;
+
+    color:#fff;
+
+    box-shadow:
+        0 0 14px rgba(44,191,104,.20);
+}
+
+
+/* =========================================================
+   MENSAGEM DE STATUS
+========================================================= */
+
+.status-mensagem{
+    margin-top:30px;
+
+    padding:16px 18px;
+
+    border-radius:14px;
+
+    background:
+        rgba(194,36,0,.08);
+
+    border:
+        1px solid rgba(255,90,35,.18);
+
+    color:#eee;
+
+    font-size:.92rem;
+
+    line-height:1.6;
+
+    text-align:center;
+
+    min-height:54px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+
+/* =========================================================
+   EFEITO QUANDO STATUS MUDA
+========================================================= */
+
+@keyframes statusPulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.04);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+.acompanhar-box.status-atualizado{
+    animation:
+        statusPulse .45s ease;
+}
+
+
+/* =========================================================
+   AVISO TIPO NOTIFICAÇÃO
+========================================================= */
+
+.status-toast{
+    position:fixed;
+
+    right:24px;
+    bottom:24px;
+
+    z-index:5000;
+
+    width:min(360px,calc(100% - 40px));
+
+    padding:18px 20px;
+
+    border-radius:16px;
+
+    background:#1e1e1e;
+
+    border:
+        1px solid rgba(255,95,45,.30);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45),
+        0 0 25px rgba(194,36,0,.16);
+
+    color:#fff;
+
+    transform:
+        translateY(120px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:
+        transform .35s ease,
+        opacity .35s ease;
+}
+
+.status-toast.show{
+    transform:
+        translateY(0);
+
+    opacity:1;
+}
+
+.status-toast strong{
+    display:block;
+
+    margin-bottom:5px;
+
+    color:#ff8a58;
+
+    font-size:.95rem;
+}
+
+.status-toast p{
+    margin:0;
+
+    color:#ddd;
+
+    font-size:.85rem;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media(max-width:700px){
+
+    .acompanhar-pedido{
+        padding:
+            40px 16px 60px;
+    }
+
+    .acompanhar-box{
+        padding:
+            24px 18px;
+    }
+
+
+    .status-pedido{
+        grid-template-columns:1fr;
+
+        gap:4px;
+    }
+
+    .status-pedido::before{
+        top:25px;
+        bottom:25px;
+
+        left:25px;
+        right:auto;
+
+        width:3px;
+        height:auto;
+    }
+
+
+    .status-etapa{
+        min-height:72px;
+
+        flex-direction:row;
+
+        justify-content:flex-start;
+
+        text-align:left;
+
+        gap:16px;
+    }
+
+
+    .status-etapa > span:first-child{
+        flex-shrink:0;
+
+        width:50px;
+        height:50px;
+    }
+
+
+    .status-mensagem{
+        margin-top:20px;
+
+        text-align:left;
+    }
+
+
+    .status-toast{
+        left:20px;
+        right:20px;
+        bottom:20px;
+
+        width:auto;
+    }
+
+}

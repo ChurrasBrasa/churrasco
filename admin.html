@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Painel Administrativo | Churrasco na Brasa</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+
+
+    <section class="login-area" id="login-area">
+
+        <div class="login-box">
+
+            <div class="login-logo">
+                <img src="img/LOGO.jpg" alt="" srcset="">
+            </div>
+
+            <h1>Churrasco na Brasa</h1>
+
+            <p>Painel Administrativo</p>
+
+
+            <div class="login-field">
+
+                <label for="admin-email">
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="admin-email"
+                    placeholder="Digite seu e-mail"
+                    autocomplete="email"
+                >
+
+            </div>
+
+
+            <div class="login-field">
+
+                <label for="admin-senha">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="admin-senha"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                >
+
+            </div>
+
+
+            <p
+                class="login-error"
+                id="login-error"
+            ></p>
+
+
+            <button
+                type="button"
+                class="btn-login"
+                id="btn-login"
+            >
+                Entrar
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+
+
+    <div
+        class="admin-app"
+        id="admin-app"
+        hidden
+    >
+
+
+
+        <header class="admin-header">
+
+            <div class="admin-brand">
+
+                <div class="admin-brand-icon">
+                    🔥
+                </div>
+
+                <div>
+
+                    <h1>
+                        Churrasco na Brasa
+                    </h1>
+
+                    <p>
+                        Painel de Pedidos
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <button
+                    type="button"
+                    class="btn-pdf"
+                    id="btn-pdf"
+                >
+                    Salvar PDF do Dia
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-logout"
+                    id="btn-logout"
+                >
+                    Sair
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+
+
+        <section class="dashboard-summary">
+
+
+            <article class="summary-card">
+
+                <span>
+                    Pedidos Hoje
+                </span>
+
+                <strong id="total-pedidos">
+                    0
+                </strong>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <span>
+                    Em Preparo
+                </span>
+
+                <strong id="total-preparo">
+                    0
+                </strong>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <span>
+                    Entregues
+                </span>
+
+                <strong id="total-entregues">
+                    0
+                </strong>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <span>
+                    Total do Dia
+                </span>
+
+                <strong id="faturamento-dia">
+                    R$ 0,00
+                </strong>
+
+            </article>
+
+
+        </section>
+
+
+
+
+
+        <main class="orders-board">
+
+
+            <!-- RECEBIDOS -->
+
+            <section class="orders-column">
+
+                <div class="column-header">
+
+                    <div>
+
+                        <span class="status-dot recebido"></span>
+
+                        <h2>
+                            Novos Pedidos
+                        </h2>
+
+                    </div>
+
+
+                    <span
+                        class="order-count"
+                        id="count-recebidos"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="orders-list"
+                    id="pedidos-recebidos"
+                >
+
+                    <div class="empty-orders">
+                        Nenhum pedido novo.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            
+
+            <section class="orders-column">
+
+                <div class="column-header">
+
+                    <div>
+
+                        <span class="status-dot preparo"></span>
+
+                        <h2>
+                            Em Preparo
+                        </h2>
+
+                    </div>
+
+
+                    <span
+                        class="order-count"
+                        id="count-preparo"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="orders-list"
+                    id="pedidos-preparo"
+                >
+
+                    <div class="empty-orders">
+                        Nenhum pedido em preparo.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SAIU PARA ENTREGA -->
+
+            <section class="orders-column">
+
+                <div class="column-header">
+
+                    <div>
+
+                        <span class="status-dot entrega"></span>
+
+                        <h2>
+                            Saiu para Entrega
+                        </h2>
+
+                    </div>
+
+
+                    <span
+                        class="order-count"
+                        id="count-entrega"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="orders-list"
+                    id="pedidos-entrega"
+                >
+
+                    <div class="empty-orders">
+                        Nenhum pedido saiu para entrega.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+
+            <section class="orders-column">
+
+                <div class="column-header">
+
+                    <div>
+
+                        <span class="status-dot finalizado"></span>
+
+                        <h2>
+                            Finalizados
+                        </h2>
+
+                    </div>
+
+
+                    <span
+                        class="order-count"
+                        id="count-finalizados"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="orders-list"
+                    id="pedidos-finalizados"
+                >
+
+                    <div class="empty-orders">
+                        Nenhum pedido finalizado.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+
+
+
+        <div
+            class="admin-overlay"
+            id="admin-overlay"
+        >
+
+            <div class="pedido-modal">
+
+                <button
+                    type="button"
+                    class="close-pedido"
+                    id="close-pedido"
+                >
+                    ✕
+                </button>
+
+
+                <div id="pedido-detalhes">
+
+                    <!--
+                    
+vai ter nessa coisa:
+                        nome
+                        telefone
+                        endereço
+                        produtos
+                        total
+                        pagamento
+                        ponto da carne
+                        horário
+                        status
+                    -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <footer class="admin-footer">
+
+            <span>
+                Churrasco na Brasa
+            </span>
+
+            <span id="status-conexao">
+                Sistema conectado
+            </span>
+
+        </footer>
+
+
+    </div>
+
+
+
+
+
+    <script
+        type="module"
+        src="admin.js"
+    ></script>
+
+</body>
+
+</html>

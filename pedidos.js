@@ -14,6 +14,8 @@ export async function finalizarPedido(checkout, cart, total) {
         numero: checkout.numero || "",
         bairro: checkout.bairro || "",
         entrega: checkout.entrega,
+        horarioSolicitado: checkout.horarioSolicitado || "",
+tempoMinimoPreparo: checkout.tempoMinimoPreparo || 0,
         carne: checkout.carne,
         pagamento: checkout.pagamento,
 

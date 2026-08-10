@@ -1,0 +1,1154 @@
+/* =========================================================
+   ADMIN - CHURRASCO NA BRASA
+========================================================= */
+
+:root{
+    --bg: #120d0b;
+    --bg-soft: #19110e;
+    --card: #211612;
+    --card-hover: #2a1b16;
+
+    --red: #c22400;
+    --red-dark: #8f1a00;
+
+    --orange: #ff6a1a;
+    --gold: #e6b85c;
+
+    --text: #f5eee8;
+    --text-soft: #b8aaa1;
+
+    --line: #3a2922;
+
+    --green: #4caf6a;
+    --yellow: #f4b942;
+    --blue: #4d8ed8;
+    --gray: #777;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(194, 36, 0, .18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at top right,
+            rgba(255, 106, 26, .08),
+            transparent 35%
+        ),
+        var(--bg);
+
+    color: var(--text);
+}
+
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+[hidden]{
+    display: none !important;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.login-area{
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+}
+
+.login-box{
+    width: 100%;
+    max-width: 420px;
+
+    background: rgba(33, 22, 18, .96);
+
+    border: 1px solid var(--line);
+
+    border-radius: 22px;
+
+    padding: 34px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        0 0 35px rgba(194,36,0,.08);
+
+    text-align: center;
+}
+
+.login-logo{
+    width: 100px;
+    height: 100px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border: 2px solid var(--gold);
+
+    box-shadow:
+        0 0 25px rgba(230,184,92,.15);
+}
+
+.login-logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-box h1{
+    font-size: 25px;
+
+    color: var(--gold);
+
+    margin-bottom: 6px;
+}
+
+.login-box > p{
+    color: var(--text-soft);
+
+    font-size: 14px;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   CAMPOS LOGIN
+========================================================= */
+
+.login-field{
+    text-align: left;
+
+    margin-bottom: 18px;
+}
+
+.login-field label{
+    display: block;
+
+    color: var(--gold);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    margin-bottom: 7px;
+
+    letter-spacing: .5px;
+}
+
+.login-field input{
+    width: 100%;
+
+    background: #16100d;
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+
+    color: var(--text);
+
+    padding: 13px 14px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .2s;
+}
+
+.login-field input:focus{
+    border-color: var(--orange);
+
+    box-shadow:
+        0 0 0 3px rgba(255,106,26,.08);
+}
+
+.login-field input::placeholder{
+    color: #766a64;
+}
+
+
+/* =========================================================
+   ERRO LOGIN
+========================================================= */
+
+.login-error{
+    min-height: 18px;
+
+    color: #ff7474;
+
+    font-size: 12px;
+
+    margin-bottom: 8px !important;
+}
+
+
+/* =========================================================
+   BOTÃO LOGIN
+========================================================= */
+
+.btn-login{
+    width: 100%;
+
+    border: none;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--red),
+            var(--red-dark)
+        );
+
+    color: white;
+
+    padding: 14px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .6px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.btn-login:hover{
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 22px rgba(194,36,0,.25);
+}
+
+.btn-login:active{
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   ADMIN APP
+========================================================= */
+
+.admin-app{
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   HEADER ADMIN
+========================================================= */
+
+.admin-header{
+    min-height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 28px;
+
+    background: rgba(18,13,11,.93);
+
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid var(--line);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 30;
+}
+
+.admin-brand{
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.admin-brand-icon{
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    background:
+        radial-gradient(
+            circle,
+            var(--orange),
+            var(--red)
+        );
+
+    box-shadow:
+        0 0 20px rgba(255,106,26,.28);
+}
+
+.admin-brand h1{
+    font-size: 19px;
+
+    color: var(--gold);
+}
+
+.admin-brand p{
+    color: var(--text-soft);
+
+    font-size: 12px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   AÇÕES HEADER
+========================================================= */
+
+.header-actions{
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.btn-pdf,
+.btn-logout{
+    border: none;
+
+    border-radius: 24px;
+
+    padding: 10px 18px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.btn-pdf{
+    background: var(--gold);
+
+    color: #25160c;
+}
+
+.btn-pdf:hover{
+    transform: translateY(-1px);
+
+    filter: brightness(1.08);
+}
+
+.btn-logout{
+    background: transparent;
+
+    border: 1px solid var(--line);
+
+    color: var(--text-soft);
+}
+
+.btn-logout:hover{
+    border-color: var(--red);
+
+    color: white;
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.dashboard-summary{
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+    padding: 28px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(180px, 1fr));
+
+    gap: 16px;
+}
+
+.summary-card{
+    background:
+        linear-gradient(
+            145deg,
+            #251913,
+            #1b120f
+        );
+
+    border: 1px solid var(--line);
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    min-height: 105px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    transition: .2s;
+}
+
+.summary-card:hover{
+    transform: translateY(-2px);
+
+    border-color: #54372b;
+}
+
+.summary-card span{
+    font-size: 12px;
+
+    color: var(--text-soft);
+
+    text-transform: uppercase;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
+    margin-bottom: 10px;
+}
+
+.summary-card strong{
+    font-size: 26px;
+
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   BOARD
+========================================================= */
+
+.orders-board{
+    width: 100%;
+
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+    padding: 0 28px 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(260px, 1fr));
+
+    gap: 18px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   COLUNAS
+========================================================= */
+
+.orders-column{
+    background: rgba(27,18,15,.72);
+
+    border: 1px solid var(--line);
+
+    border-radius: 16px;
+
+    padding: 15px;
+
+    min-height: 450px;
+}
+
+
+/* =========================================================
+   CABEÇALHO DAS COLUNAS
+========================================================= */
+
+.column-header{
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.column-header > div{
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.column-header h2{
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.order-count{
+    min-width: 28px;
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #291c17;
+
+    border: 1px solid var(--line);
+
+    border-radius: 50%;
+
+    font-size: 12px;
+
+    color: var(--gold);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DOT STATUS
+========================================================= */
+
+.status-dot{
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+    flex-shrink: 0;
+}
+
+.status-dot.recebido{
+    background: var(--red);
+
+    box-shadow:
+        0 0 10px rgba(194,36,0,.5);
+}
+
+.status-dot.preparo{
+    background: var(--yellow);
+
+    box-shadow:
+        0 0 10px rgba(244,185,66,.45);
+}
+
+.status-dot.entrega{
+    background: var(--blue);
+
+    box-shadow:
+        0 0 10px rgba(77,142,216,.4);
+}
+
+.status-dot.finalizado{
+    background: var(--green);
+
+    box-shadow:
+        0 0 10px rgba(76,175,106,.4);
+}
+
+
+/* =========================================================
+   LISTA DE PEDIDOS
+========================================================= */
+
+.orders-list{
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   SEM PEDIDOS
+========================================================= */
+
+.empty-orders{
+    padding: 30px 15px;
+
+    text-align: center;
+
+    color: #7f716a;
+
+    font-size: 13px;
+
+    border: 1px dashed #382822;
+
+    border-radius: 12px;
+}
+
+
+/* =========================================================
+   CARD DE PEDIDO
+   admin.js vai gerar isso
+========================================================= */
+
+.order-card{
+    background: var(--card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 13px;
+
+    padding: 15px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    position: relative;
+}
+
+.order-card:hover{
+    background: var(--card-hover);
+
+    border-color: #593a2d;
+
+    transform: translateY(-2px);
+}
+
+.order-card-header{
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.order-card-id{
+    color: var(--gold);
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.order-card-time{
+    color: var(--text-soft);
+
+    font-size: 11px;
+}
+
+.order-client{
+    font-weight: 700;
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.order-phone{
+    color: var(--text-soft);
+
+    font-size: 12px;
+
+    margin-bottom: 12px;
+}
+
+.order-items{
+    padding: 10px 0;
+
+    border-top: 1px dashed var(--line);
+
+    border-bottom: 1px dashed var(--line);
+
+    margin-bottom: 10px;
+}
+
+.order-item{
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    font-size: 12px;
+
+    padding: 4px 0;
+}
+
+.order-card-footer{
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+.order-payment{
+    color: var(--text-soft);
+
+    font-size: 11px;
+}
+
+.order-total{
+    color: var(--gold);
+
+    font-size: 15px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   BOTÕES DOS PEDIDOS
+========================================================= */
+
+.order-actions{
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 13px;
+}
+
+.order-actions button{
+    flex: 1;
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 9px 7px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    transition: .2s;
+}
+
+.btn-accept{
+    background: var(--red);
+
+    color: white;
+}
+
+.btn-accept:hover{
+    background: #e02c08;
+}
+
+.btn-next{
+    background: var(--gold);
+
+    color: #21140d;
+}
+
+.btn-next:hover{
+    filter: brightness(1.08);
+}
+
+.btn-finish{
+    background: var(--green);
+
+    color: white;
+}
+
+.btn-finish:hover{
+    filter: brightness(1.08);
+}
+
+
+/* =========================================================
+   MODAL DETALHES
+========================================================= */
+
+.admin-overlay{
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(5,3,2,.78);
+
+    backdrop-filter: blur(4px);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 100;
+}
+
+.admin-overlay.open{
+    display: flex;
+}
+
+.pedido-modal{
+    width: 100%;
+
+    max-width: 560px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: var(--bg-soft);
+
+    border: 1px solid var(--line);
+
+    border-radius: 18px;
+
+    padding: 26px;
+
+    position: relative;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.5);
+
+    animation: abrirModal .25s ease;
+}
+
+@keyframes abrirModal{
+
+    from{
+        opacity: 0;
+        transform: translateY(18px) scale(.98);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+.close-pedido{
+    position: absolute;
+
+    top: 15px;
+
+    right: 15px;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--line);
+
+    background: #211612;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+.close-pedido:hover{
+    border-color: var(--red);
+
+    background: #2a1711;
+}
+
+
+/* =========================================================
+   CONTEÚDO DO MODAL
+========================================================= */
+
+#pedido-detalhes{
+    padding-top: 12px;
+}
+
+#pedido-detalhes h2{
+    color: var(--gold);
+
+    margin-bottom: 20px;
+}
+
+.detail-row{
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid var(--line);
+
+    font-size: 13px;
+}
+
+.detail-row span:first-child{
+    color: var(--text-soft);
+}
+
+.detail-row span:last-child{
+    text-align: right;
+
+    font-weight: 700;
+}
+
+.detail-total{
+    font-size: 18px;
+
+    color: var(--gold);
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.admin-footer{
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 20px 28px;
+
+    border-top: 1px solid var(--line);
+
+    color: var(--text-soft);
+
+    font-size: 11px;
+}
+
+#status-conexao{
+    color: var(--green);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width: 9px;
+    height: 9px;
+}
+
+::-webkit-scrollbar-track{
+    background: #130d0b;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #4a3127;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background: #684235;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:1200px){
+
+    .dashboard-summary{
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .orders-board{
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media(max-width:700px){
+
+    .admin-header{
+        position: relative;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 18px;
+    }
+
+    .header-actions{
+        width: 100%;
+    }
+
+    .btn-pdf,
+    .btn-logout{
+        flex: 1;
+    }
+
+
+    .dashboard-summary{
+        padding: 18px;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 10px;
+    }
+
+    .summary-card{
+        min-height: 90px;
+
+        padding: 15px;
+    }
+
+    .summary-card strong{
+        font-size: 21px;
+    }
+
+
+    .orders-board{
+        padding:
+            0 18px 25px;
+
+        grid-template-columns: 1fr;
+    }
+
+    .orders-column{
+        min-height: auto;
+    }
+
+
+    .admin-footer{
+        padding: 18px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+
+@media(max-width:460px){
+
+    .login-box{
+        padding: 26px 20px;
+    }
+
+    .login-logo{
+        width: 82px;
+        height: 82px;
+    }
+
+    .login-box h1{
+        font-size: 21px;
+    }
+
+
+    .dashboard-summary{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .summary-card span{
+        font-size: 10px;
+    }
+
+    .summary-card strong{
+        font-size: 18px;
+    }
+
+
+    .pedido-modal{
+        padding: 22px 18px;
+    }
+
+}

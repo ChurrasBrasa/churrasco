@@ -25,6 +25,7 @@
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="eventos.html">Eventos</a></li>
                 <li><a href="comentarios.html">Comentários</a></li>
+                <li><a href="admin.html">ADM</a></li>
             </ul>
         </nav>
         <div class="btn-contato">
@@ -185,7 +186,69 @@
     </div>
  
 </section>
+<section
+    class="acompanhar-pedido"
+    id="acompanhar-pedido"
+    hidden
+>
 
+    <div class="acompanhar-box">
+
+        <span class="acompanhar-label">
+            SEU PEDIDO
+        </span>
+
+        <h2 id="acompanhar-id">
+            Pedido
+        </h2>
+
+        <div class="status-pedido">
+
+            <div
+                class="status-etapa"
+                data-etapa="Recebido"
+            >
+                <span>✓</span>
+                Pedido recebido
+            </div>
+
+            <div
+                class="status-etapa"
+                data-etapa="Em preparo"
+            >
+                <span>🔥</span>
+                Em preparo
+            </div>
+
+            <div
+                class="status-etapa"
+                data-etapa="Saida"
+            >
+                <span>🛵</span>
+                <span id="texto-saida">
+                    Saiu para entrega
+                </span>
+            </div>
+
+            <div
+                class="status-etapa"
+                data-etapa="Finalizado"
+            >
+                <span>✓</span>
+                Finalizado
+            </div>
+
+        </div>
+
+        <p
+            class="status-mensagem"
+            id="status-mensagem"
+        >
+        </p>
+
+    </div>
+
+</section>
 
 
 <div class="overlay" id="overlay">

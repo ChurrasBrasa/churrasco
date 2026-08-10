@@ -10,11 +10,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modal');
     const carrinhoEl = document.getElementById('carrinho');
     const totalEl = document.getElementById('total');
+    const TEMPOS_PREPARO = {
+    'mal passada': 60,
+    'no ponto': 75,
+    'bem passada': 90
+};
 
     let cart = [];
     let checkout = {};
     let step = 0;
-    const STEPS = ['entrega', 'contato', 'carne', 'pagamento', 'revisao', 'confirmado'];
+    const STEPS = [
+    'entrega',
+    'contato',
+    'carne',
+    'horario',
+    'pagamento',
+    'revisao',
+    'confirmado'
+];
     const DELIVERY_FEE = 8.00;
 
     function money(value) {
@@ -136,6 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
             numero: '',
             bairro: '',
             carne: null,
+            horarioSolicitado: '',
+            tempoMinimoPreparo: 0,
             pagamento: null,
             orderId: ''
         };
@@ -150,26 +165,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function dots(activeIndex) {
         let html = '<div class="step-dots">';
-        for (let i = 0; i < 5; i += 1) {
+        for (let i = 0; i < 6; i += 1) {
             html += `<span class="${i <= activeIndex ? 'done' : ''}"></span>`;
         }
         html += '</div>';
         return html;
     }
 
-    function miniSummary() {
-        let html = '<div class="mini-summary">';
-        cart.forEach(item => {
-            html += `<div class="row"><span>${item.nome} x${item.qtd}</span><span>${money(item.preco * item.qtd)}</span></div>`;
-        });
-        if (checkout.entrega === 'entrega') {
-            html += `<div class="row"><span>Taxa de entrega</span><span>${money(DELIVERY_FEE)}</span></div>`;
-        }
-        html += `<div class="row total"><span>Total</span><span>${money(cartTotal() + (checkout.entrega === 'entrega' ? DELIVERY_FEE : 0))}</span></div>`;
-        html += '</div>';
-        return html;
+function miniSummary() {
+    let html = '<div class="mini-summary">';
+
+    cart.forEach(item => {
+        html += `
+            <div class="row">
+                <span>${item.nome} x${item.qtd}</span>
+                <span>${money(item.preco * item.qtd)}</span>
+            </div>
+        `;
+    });
+
+    if (checkout.entrega === 'entrega') {
+        html += `
+            <div class="row">
+                <span>Taxa de entrega</span>
+                <span>${money(DELIVERY_FEE)}</span>
+            </div>
+        `;
     }
 
+    html += `
+        <div class="row total">
+            <span>Total</span>
+            <span>
+                ${money(
+                    cartTotal() +
+                    (checkout.entrega === 'entrega'
+                        ? DELIVERY_FEE
+                        : 0)
+                )}
+            </span>
+        </div>
+    `;
+
+    html += '</div>';
+
+    return html;
+}
     function renderStep() {
         if (!modal) return;
         const current = STEPS[step];
@@ -223,6 +264,99 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (current === 'horario') {
+
+    checkout.tempoMinimoPreparo =
+        TEMPOS_PREPARO[checkout.carne] || 60;
+
+    const titulo =
+        checkout.entrega === 'retirar'
+            ? 'Qual horário você gostaria de retirar a carne?'
+            : 'Qual horário você gostaria de receber a carne?';
+
+    const horas =
+        Math.floor(checkout.tempoMinimoPreparo / 60);
+
+    const minutos =
+        checkout.tempoMinimoPreparo % 60;
+
+    const tempoTexto =
+        horas > 0
+            ? `${horas}h${minutos ? ` ${minutos}min` : ''}`
+            : `${minutos}min`;
+
+    modal.innerHTML = `
+        <div class="modal-head">
+
+            <h2>Horário</h2>
+
+            <button
+                class="close-modal"
+                type="button"
+                onclick="closeCheckout()">
+                ×
+            </button>
+
+        </div>
+
+        ${dots(3)}
+
+        ${miniSummary()}
+
+        <div class="mini-summary">
+
+            <div class="row">
+                <span>Ponto da carne</span>
+                <span>${checkout.carne.toUpperCase()}</span>
+            </div>
+
+            <div class="row">
+                <span>Tempo mínimo de preparo</span>
+                <span>${tempoTexto}</span>
+            </div>
+
+        </div>
+
+        <div class="field">
+
+            <label>
+                ${titulo}
+            </label>
+
+            <input
+                type="time"
+                id="f-horario"
+                value="${checkout.horarioSolicitado}"
+            >
+
+        </div>
+
+        <div
+            class="field-error"
+            id="horario-error"
+            style="display:none;">
+        </div>
+
+        <button
+            class="btn-primary"
+            onclick="submitHorario()">
+
+            Continuar
+
+        </button>
+
+        <button
+            class="btn-ghost"
+            onclick="prevStep()">
+
+            Voltar
+
+        </button>
+    `;
+
+    return;
+}
+
         if (current === 'carne') {
             modal.innerHTML = `
                 <div class="modal-head">
@@ -249,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>Pagamento</h2>
                     <button class="close-modal" type="button" onclick="closeCheckout()">×</button>
                 </div>
-                ${dots(3)}
+                ${dots(4)}
                 ${miniSummary()}
                 ${['PIX', 'Dinheiro', 'Cartão de Débito', 'Cartão de Crédito'].map(option => `
                     <div class="choice ${checkout.pagamento === option ? 'selected' : ''}" onclick="selectPagamento('${option}')">
@@ -341,38 +475,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
         </div>
 
-        ${dots(4)}
+        ${dots(5)}
 
         ${miniSummary()}
+<div class="row">
+    <span>
+        ${checkout.entrega === 'retirar'
+            ? 'Horário para retirada'
+            : 'Horário para entrega'}
+    </span>
+
+    <span>
+        ${checkout.horarioSolicitado}
+    </span>
+</div>
+
+<div class="row">
+    <span>
+        Tempo mínimo de preparo
+    </span>
+
+    <span>
+        ${checkout.tempoMinimoPreparo} min
+    </span>
+</div>
 
         <div class="mini-summary">
 
             <div class="row">
-                <span>Cliente</span>
-                <span>${checkout.nome}</span>
-            </div>
+    <span>Cliente</span>
+    <span>${checkout.nome}</span>
+</div>
 
-            <div class="row">
-                <span>Telefone</span>
-                <span>${checkout.telefone}</span>
-            </div>
+<div class="row">
+    <span>Telefone</span>
+    <span>${checkout.telefone}</span>
+</div>
 
-            ${localRecebimento}
+${localRecebimento}
 
-            <div class="row">
-                <span>Ponto da carne</span>
+<div class="row">
+    <span>Ponto da carne</span>
+    <span>${checkout.carne?.toUpperCase() || ''}</span>
+</div>
 
-                <span>
-                    ${checkout.carne?.toUpperCase() || ''}
-                </span>
-            </div>
+<div class="row">
+    <span>
+        ${checkout.entrega === 'retirar'
+            ? 'Horário para retirada'
+            : 'Horário para entrega'}
+    </span>
 
-            <div class="row">
-                <span>Pagamento</span>
-                <span>${checkout.pagamento}</span>
-            </div>
+    <span>${checkout.horarioSolicitado}</span>
+</div>
 
-        </div>
+<div class="row">
+    <span>Tempo mínimo de preparo</span>
+    <span>${checkout.tempoMinimoPreparo} min</span>
+</div>
+
+<div class="row">
+    <span>Pagamento</span>
+    <span>${checkout.pagamento}</span>
+</div>
 
         <button
             class="btn-primary"
@@ -406,6 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             return;
         }
+        
     }
 
     function selectEntrega(value) {
@@ -490,15 +656,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const total = cartTotal() + (checkout.entrega === 'entrega' ? DELIVERY_FEE : 0);
-        const checkoutData = {
+const checkoutData = {
     nome: checkout.nome,
     telefone: checkout.telefone,
+
     endereco: checkout.endereco,
     numero: checkout.numero,
     bairro: checkout.bairro,
+
     entrega: checkout.entrega,
+
     carne: checkout.carne,
-    pagamento: checkout.pagamento
+
+    horarioSolicitado:
+        checkout.horarioSolicitado,
+
+    tempoMinimoPreparo:
+        checkout.tempoMinimoPreparo,
+
+    pagamento:
+        checkout.pagamento
 };
 
         try {
@@ -534,6 +711,82 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => { btn.style.transform = 'scale(1)'; }, 120);
         });
     });
+function submitHorario(){
+
+    const input =
+        document.getElementById('f-horario');
+
+    const error =
+        document.getElementById('horario-error');
+
+    const horario =
+        input?.value || '';
+
+    if(!horario){
+
+        error.textContent =
+            'Escolha um horário.';
+
+        error.style.display =
+            'block';
+
+        return;
+    }
+
+    const agora =
+        new Date();
+
+    const [hora, minuto] =
+        horario.split(':').map(Number);
+
+    const escolhido =
+        new Date();
+
+    escolhido.setHours(
+        hora,
+        minuto,
+        0,
+        0
+    );
+
+    const diferenca =
+        (escolhido - agora) / 60000;
+
+    if(
+        diferenca <
+        checkout.tempoMinimoPreparo
+    ){
+
+        const minimo =
+            new Date(
+                agora.getTime() +
+                checkout.tempoMinimoPreparo *
+                60000
+            );
+
+        const horarioMinimo =
+            minimo.toLocaleTimeString(
+                'pt-BR',
+                {
+                    hour:'2-digit',
+                    minute:'2-digit'
+                }
+            );
+
+        error.textContent =
+            `Escolha um horário a partir das ${horarioMinimo}.`;
+
+        error.style.display =
+            'block';
+
+        return;
+    }
+
+    checkout.horarioSolicitado =
+        horario;
+
+    nextStep();
+}
 
     if (btnContinuar) btnContinuar.addEventListener('click', openCheckout);
 
@@ -547,6 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.nextStep = nextStep;
     window.prevStep = prevStep;
     window.selectEntrega = selectEntrega;
+    window.submitHorario = submitHorario;
     window.selectCarne = selectCarne;
     window.selectPagamento = selectPagamento;
     window.submitContato = submitContato;
