@@ -6,7 +6,8 @@ import {
     updateDoc,
     onSnapshot,
     query,
-    orderBy
+    orderBy,
+    writeBatch
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 import {
@@ -50,6 +51,10 @@ const detalhesEl = document.getElementById("pedido-detalhes");
 const fecharDetalhes = document.getElementById("close-pedido");
 
 const btnPdf = document.getElementById("btn-pdf");
+const btnLimparPedidos =
+    document.getElementById(
+        "btn-limpar-pedidos"
+    );
 
 let pedidosAtuais = [];
 let unsubscribePedidos = null;
@@ -1070,3 +1075,121 @@ function gerarRelatorio() {
     );
 
 }
+
+btnLimparPedidos?.addEventListener(
+    "click",
+    async () => {
+
+        if (!pedidosAtuais.length) {
+
+            alert(
+                "Não há pedidos para excluir."
+            );
+
+            return;
+        }
+
+
+        const confirmar =
+            confirm(
+                "Tem certeza que deseja encerrar o expediente?\n\n" +
+                "Todos os pedidos e acompanhamentos serão excluídos do Firebase."
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        const confirmarNovamente =
+            confirm(
+                "Essa ação não pode ser desfeita.\n\n" +
+                "Você já salvou o PDF do expediente?"
+            );
+
+
+        if (!confirmarNovamente) {
+            return;
+        }
+
+
+        try {
+
+            btnLimparPedidos.disabled = true;
+
+            btnLimparPedidos.textContent =
+                "Encerrando...";
+
+
+            const batch =
+                writeBatch(dbPedidos);
+
+
+            pedidosAtuais.forEach(
+                pedido => {
+
+                    /* APAGA O PEDIDO */
+
+                    batch.delete(
+                        doc(
+                            dbPedidos,
+                            "pedidos",
+                            pedido.id
+                        )
+                    );
+
+
+                    /* APAGA O ACOMPANHAMENTO */
+
+                    if (
+                        pedido.tokenAcompanhamento
+                    ) {
+
+                        batch.delete(
+                            doc(
+                                dbPedidos,
+                                "acompanhamento",
+                                pedido.tokenAcompanhamento
+                            )
+                        );
+
+                    }
+
+                }
+            );
+
+
+            await batch.commit();
+
+
+            alert(
+                "Expediente encerrado com sucesso!\n\n" +
+                "Os pedidos foram apagados do Firebase."
+            );
+
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao limpar pedidos:",
+                erro
+            );
+
+
+            alert(
+                "Não foi possível excluir os pedidos."
+            );
+
+
+        } finally {
+
+            btnLimparPedidos.disabled = false;
+
+            btnLimparPedidos.textContent =
+                "Encerrar Expediente";
+
+        }
+
+    }
+);
