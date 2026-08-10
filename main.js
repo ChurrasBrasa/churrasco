@@ -920,11 +920,35 @@ function atualizarAcompanhamento(dados) {
 
         else if (status === "Finalizado") {
 
-            mensagem.textContent =
-                "✅ Pedido finalizado. Obrigado pela preferência!";
+    mensagem.textContent =
+        "✅ Pedido finalizado. Obrigado pela preferência!";
 
-        }
 
+    /* Apaga o pedido salvo no navegador */
+    localStorage.removeItem("pedidoAtual");
+
+
+    /* Para de escutar esse pedido */
+    if (unsubscribeAcompanhamento) {
+
+        unsubscribeAcompanhamento();
+
+        unsubscribeAcompanhamento = null;
+
+    }
+
+
+    /* Deixa o cliente ver que finalizou
+       e depois esconde o acompanhamento */
+    setTimeout(() => {
+
+        area.hidden = true;
+
+        ultimoStatus = null;
+
+    }, 5000);
+
+}
     }
 
 
