@@ -3252,3 +3252,106 @@ img{
     }
 
 }
+
+@media (max-width:900px){
+
+    .banner{
+        /* tira o comportamento gigante de 100vh */
+        min-height:0;
+        height:auto;
+
+        /*
+        A imagem passa a determinar visualmente a proporção.
+        Como o banner é horizontal, usamos largura inteira.
+        */
+        aspect-ratio:16 / 9;
+
+        padding-top:0;
+
+        background-image:url("img/banner.png");
+
+        background-size:contain;
+        background-repeat:no-repeat;
+        background-position:center;
+
+        /*
+        Preenche discretamente a área caso a proporção
+        da tela e da imagem não sejam idênticas.
+        */
+        background-color:#111;
+    }
+
+
+    .banner::after{
+        background:
+            linear-gradient(
+                180deg,
+                rgba(0,0,0,.12),
+                rgba(0,0,0,.28)
+            );
+    }
+
+
+    .banner-content{
+        width:100%;
+        height:100%;
+
+        padding:0 16px;
+
+        margin:0;
+
+        display:flex;
+
+        align-items:flex-end;
+        justify-content:center;
+
+        padding-bottom:6%;
+    }
+
+
+    .cta-pedido{
+        margin:0;
+
+        padding:12px 25px;
+
+        font-size:.88rem;
+    }
+
+}
+
+
+/* CELULAR */
+
+@media (max-width:600px){
+
+    .banner{
+    
+        min-height:0;
+
+        width:100%;
+
+        aspect-ratio:16 / 9;
+
+        background-size:100% auto;
+        background-position:center center;
+    }
+
+
+    .banner-content{
+        padding-bottom:5%;
+    }
+
+
+    .cta-pedido{
+        padding:10px 20px;
+
+        font-size:.78rem;
+    }
+
+
+    .pedido .icon-fire{
+        width:18px;
+        height:18px;
+    }
+
+}
