@@ -679,7 +679,26 @@ const checkoutData = {
 };
 
         try {
-            checkout.orderId = await salvarPedido(checkoutData, cart, total) || '';
+            const pedidoSalvo =
+    await salvarPedido(
+        checkoutData,
+        cart,
+        total
+    );
+
+checkout.orderId =
+    pedidoSalvo.id;
+
+checkout.tokenAcompanhamento =
+    pedidoSalvo.token;
+
+localStorage.setItem(
+    "pedidoAtual",
+    JSON.stringify({
+        id: pedidoSalvo.id,
+        token: pedidoSalvo.token
+    })
+);
             step = STEPS.indexOf('confirmado');
             renderStep();
             cart = [];

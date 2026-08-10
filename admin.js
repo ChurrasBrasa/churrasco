@@ -490,10 +490,69 @@ function botaoStatus(pedido) {
    ATUALIZAR STATUS
 ========================================================= */
 
-async function atualizarStatus(
-    pedidoId,
-    novoStatus
-) {
+async function atualizarStatus(pedidoId, novoStatus) {
+
+    try {
+
+        const pedido = pedidosAtuais.find(
+            item => item.id === pedidoId
+        );
+
+        if (!pedido) {
+            console.error("Pedido não encontrado.");
+            return;
+        }
+
+        /* ATUALIZA O PEDIDO COMPLETO */
+
+        await updateDoc(
+            doc(
+                dbPedidos,
+                "pedidos",
+                pedidoId
+            ),
+            {
+                status: novoStatus
+            }
+        );
+
+
+        /* ATUALIZA O ACOMPANHAMENTO DO CLIENTE */
+
+        if (pedido.tokenAcompanhamento) {
+
+            await updateDoc(
+                doc(
+                    dbPedidos,
+                    "acompanhamento",
+                    pedido.tokenAcompanhamento
+                ),
+                {
+                    status: novoStatus
+                }
+            );
+
+        }
+
+        console.log(
+            "Status atualizado:",
+            novoStatus
+        );
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao alterar status:",
+            erro
+        );
+
+        alert(
+            "Não foi possível alterar o status."
+        );
+
+    }
+
+}
 
     try {
 
@@ -521,12 +580,10 @@ async function atualizarStatus(
 
     }
 
-}
 
 
-/* =========================================================
-   RENDERIZAR PEDIDOS
-========================================================= */
+
+
 
 function renderizarPedidos() {
 
