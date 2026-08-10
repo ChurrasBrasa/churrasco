@@ -18,17 +18,13 @@ export async function finalizarPedido(checkout, cart, total) {
 
     const tokenAcompanhamento = gerarTokenAcompanhamento();
 
-
     const pedido = {
 
         nome: checkout.nome,
-
         telefone: checkout.telefone,
 
         endereco: checkout.endereco || "",
-
         numero: checkout.numero || "",
-
         bairro: checkout.bairro || "",
 
         entrega: checkout.entrega,
@@ -46,16 +42,10 @@ export async function finalizarPedido(checkout, cart, total) {
         tokenAcompanhamento,
 
         itens: cart.map(item => ({
-
             nome: item.nome,
-
             preco: item.preco,
-
             quantidade: item.qtd,
-
-            subtotal:
-                item.preco * item.qtd
-
+            subtotal: item.preco * item.qtd
         })),
 
         total,
@@ -68,27 +58,18 @@ export async function finalizarPedido(checkout, cart, total) {
 
 
     const docRef = await addDoc(
-
-        collection(
-            db,
-            "pedidos"
-        ),
-
+        collection(db, "pedidos"),
         pedido
-
     );
 
 
     await setDoc(
-
         doc(
             db,
             "acompanhamento",
             tokenAcompanhamento
         ),
-
         {
-
             pedidoId: docRef.id,
 
             status: "Recebido",
@@ -101,18 +82,13 @@ export async function finalizarPedido(checkout, cart, total) {
 
             criadoEm:
                 serverTimestamp()
-
         }
-
     );
 
 
     return {
-
         id: docRef.id,
-
         token: tokenAcompanhamento
-
     };
 
 }

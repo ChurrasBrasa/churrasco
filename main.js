@@ -1,5 +1,12 @@
 ﻿import { finalizarPedido as salvarPedido } from './pedidos.js';
 
+import { dbPedidos } from "./firebase.js";
+
+import {
+    doc,
+    onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('#header');
     const menuLinks = document.querySelectorAll('.menu1 a');
@@ -699,6 +706,9 @@ localStorage.setItem(
         token: pedidoSalvo.token
     })
 );
+
+iniciarAcompanhamento(pedidoSalvo.token);
+
             step = STEPS.indexOf('confirmado');
             renderStep();
             cart = [];
@@ -720,6 +730,285 @@ localStorage.setItem(
         closeCheckout();
         step = 0;
     }
+
+
+
+let unsubscribeAcompanhamento = null;
+let ultimoStatus = null;
+
+
+function iniciarAcompanhamento(token) {
+
+    if (!token) return;
+
+    const area =
+        document.getElementById("acompanhar-pedido");
+
+    if (!area) {
+        console.error(
+            "Não encontrei #acompanhar-pedido no HTML."
+        );
+        return;
+    }
+
+    area.hidden = false;
+
+    if (unsubscribeAcompanhamento) {
+        unsubscribeAcompanhamento();
+    }
+
+    const referencia = doc(
+        dbPedidos,
+        "acompanhamento",
+        token
+    );
+
+    unsubscribeAcompanhamento =
+        onSnapshot(
+
+            referencia,
+
+            snapshot => {
+
+                if (!snapshot.exists()) {
+                    console.log(
+                        "Acompanhamento não encontrado."
+                    );
+                    return;
+                }
+
+                const dados =
+                    snapshot.data();
+
+                atualizarAcompanhamento(dados);
+
+            },
+
+            erro => {
+
+                console.error(
+                    "Erro ao acompanhar pedido:",
+                    erro
+                );
+
+            }
+
+        );
+}
+
+
+function atualizarAcompanhamento(dados) {
+
+    const area =
+        document.getElementById(
+            "acompanhar-pedido"
+        );
+
+    const mensagem =
+        document.getElementById(
+            "status-mensagem"
+        );
+
+    const textoSaida =
+        document.getElementById(
+            "texto-saida"
+        );
+
+    if (!area) return;
+
+    area.hidden = false;
+
+    const status =
+        dados.status || "Recebido";
+
+    const retirada =
+        dados.tipoEntrega === "retirar";
+
+
+    if (textoSaida) {
+
+        textoSaida.textContent =
+            retirada
+                ? "Pronto para retirada"
+                : "Saiu para entrega";
+
+    }
+
+
+    const ordem = retirada
+        ? [
+            "Recebido",
+            "Em preparo",
+            "Pronto para retirada",
+            "Finalizado"
+        ]
+        : [
+            "Recebido",
+            "Em preparo",
+            "Saiu para entrega",
+            "Finalizado"
+        ];
+
+
+    const indiceAtual =
+        ordem.indexOf(status);
+
+
+    const etapas =
+        document.querySelectorAll(
+            ".status-etapa"
+        );
+
+
+    etapas.forEach(
+        (etapa, indice) => {
+
+            etapa.classList.remove(
+                "ativo",
+                "concluido"
+            );
+
+            if (indice < indiceAtual) {
+                etapa.classList.add(
+                    "concluido"
+                );
+            }
+
+            if (indice === indiceAtual) {
+                etapa.classList.add(
+                    "ativo"
+                );
+            }
+
+        }
+    );
+
+
+    if (mensagem) {
+
+        if (status === "Recebido") {
+
+            mensagem.textContent =
+                "✅ Seu pedido foi recebido! Aguarde a confirmação.";
+
+        }
+
+        else if (status === "Em preparo") {
+
+            mensagem.textContent =
+                "🔥 Pedido aceito! Sua carne já está sendo preparada.";
+
+        }
+
+        else if (
+            status === "Saiu para entrega"
+        ) {
+
+            mensagem.textContent =
+                "🛵 Seu pedido saiu para entrega!";
+
+        }
+
+        else if (
+            status === "Pronto para retirada"
+        ) {
+
+            mensagem.textContent =
+                "🥩 Seu pedido está pronto para retirada!";
+
+        }
+
+        else if (status === "Finalizado") {
+
+            mensagem.textContent =
+                "✅ Pedido finalizado. Obrigado pela preferência!";
+
+        }
+
+    }
+
+
+    if (
+        ultimoStatus !== null &&
+        ultimoStatus !== status
+    ) {
+
+        mostrarAvisoStatus(status);
+
+    }
+
+    ultimoStatus = status;
+}
+
+
+function mostrarAvisoStatus(status) {
+
+    let toast =
+        document.getElementById(
+            "status-toast"
+        );
+
+
+    if (!toast) {
+
+        toast =
+            document.createElement("div");
+
+        toast.id = "status-toast";
+        toast.className = "status-toast";
+
+        document.body.appendChild(toast);
+
+    }
+
+
+    const mensagens = {
+
+        "Em preparo": {
+            titulo: "🔥 Pedido aceito!",
+            texto: "Sua carne já está sendo preparada."
+        },
+
+        "Saiu para entrega": {
+            titulo: "🛵 Saiu para entrega!",
+            texto: "Seu pedido está a caminho."
+        },
+
+        "Pronto para retirada": {
+            titulo: "🥩 Pedido pronto!",
+            texto: "Seu pedido já pode ser retirado."
+        },
+
+        "Finalizado": {
+            titulo: "✅ Pedido finalizado!",
+            texto: "Obrigado pela preferência!"
+        }
+
+    };
+
+
+    const aviso =
+        mensagens[status];
+
+    if (!aviso) return;
+
+
+    toast.innerHTML = `
+        <strong>${aviso.titulo}</strong>
+        <p>${aviso.texto}</p>
+    `;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 5000);
+
+}
 
     botoesAdicionar.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -813,6 +1102,35 @@ function submitHorario(){
     setupMenuLinks();
     setupCtaPedido();
     updateContinueState();
+
+    const pedidoAnterior =
+    localStorage.getItem("pedidoAtual");
+
+if (pedidoAnterior) {
+
+    try {
+
+        const dados =
+            JSON.parse(pedidoAnterior);
+
+        if (dados.token) {
+
+            iniciarAcompanhamento(
+                dados.token
+            );
+
+        }
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao recuperar pedido:",
+            erro
+        );
+
+    }
+
+}
 
     window.openCheckout = openCheckout;
     window.closeCheckout = closeCheckout;
