@@ -1,28 +1,21 @@
-/* =========================================================
-   ADMIN - CHURRASCO NA BRASA
-========================================================= */
-
 :root{
-    --bg: #120d0b;
-    --bg-soft: #19110e;
-    --card: #211612;
-    --card-hover: #2a1b16;
+    --bg: #12100f;
+    --surface: #191615;
+    --surface-2: #211d1b;
 
     --red: #c22400;
-    --red-dark: #8f1a00;
+    --red-hover: #da2b07;
 
-    --orange: #ff6a1a;
-    --gold: #e6b85c;
+    --gold: #d8b06a;
 
-    --text: #f5eee8;
-    --text-soft: #b8aaa1;
+    --text: #f3efec;
+    --text-soft: #aaa09a;
 
-    --line: #3a2922;
+    --border: #302a27;
 
-    --green: #4caf6a;
-    --yellow: #f4b942;
-    --blue: #4d8ed8;
-    --gray: #777;
+    --green: #4da86a;
+    --yellow: #d8a73f;
+    --blue: #5488c7;
 
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -44,26 +37,18 @@ html{
 
 body{
     min-height: 100vh;
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(194, 36, 0, .18),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at top right,
-            rgba(255, 106, 26, .08),
-            transparent 35%
-        ),
-        var(--bg);
-
+    background: var(--bg);
     color: var(--text);
 }
 
+button,
+input{
+    font: inherit;
+}
 
-/* =========================================================
-   HIDDEN
-========================================================= */
+button{
+    cursor: pointer;
+}
 
 [hidden]{
     display: none !important;
@@ -86,37 +71,26 @@ body{
 
 .login-box{
     width: 100%;
-    max-width: 420px;
+    max-width: 390px;
 
-    background: rgba(33, 22, 18, .96);
+    background: var(--surface);
 
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
+    border-radius: 18px;
 
-    border-radius: 22px;
-
-    padding: 34px;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.45),
-        0 0 35px rgba(194,36,0,.08);
+    padding: 32px;
 
     text-align: center;
 }
 
 .login-logo{
-    width: 100px;
-    height: 100px;
+    width: 88px;
+    height: 88px;
 
     margin: 0 auto 18px;
 
     border-radius: 50%;
-
     overflow: hidden;
-
-    border: 2px solid var(--gold);
-
-    box-shadow:
-        0 0 25px rgba(230,184,92,.15);
 }
 
 .login-logo img{
@@ -126,19 +100,14 @@ body{
 }
 
 .login-box h1{
-    font-size: 25px;
-
-    color: var(--gold);
-
-    margin-bottom: 6px;
+    font-size: 23px;
+    margin-bottom: 5px;
 }
 
 .login-box > p{
     color: var(--text-soft);
-
-    font-size: 14px;
-
-    margin-bottom: 28px;
+    font-size: 13px;
+    margin-bottom: 26px;
 }
 
 
@@ -148,66 +117,52 @@ body{
 
 .login-field{
     text-align: left;
-
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 .login-field label{
     display: block;
 
-    color: var(--gold);
-
-    font-size: 12px;
-
+    font-size: 11px;
     font-weight: 700;
 
+    color: var(--text-soft);
+
+    margin-bottom: 6px;
+
     text-transform: uppercase;
-
-    margin-bottom: 7px;
-
-    letter-spacing: .5px;
+    letter-spacing: .4px;
 }
 
 .login-field input{
     width: 100%;
 
-    background: #16100d;
+    background: #141211;
 
-    border: 1px solid var(--line);
-
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
 
     color: var(--text);
 
-    padding: 13px 14px;
-
-    font-size: 14px;
+    padding: 12px 13px;
 
     outline: none;
 
-    transition: .2s;
+    transition: border-color .2s;
 }
 
 .login-field input:focus{
-    border-color: var(--orange);
-
-    box-shadow:
-        0 0 0 3px rgba(255,106,26,.08);
+    border-color: var(--red);
 }
 
 .login-field input::placeholder{
-    color: #766a64;
+    color: #69615d;
 }
 
-
-/* =========================================================
-   ERRO LOGIN
-========================================================= */
-
 .login-error{
-    min-height: 18px;
+    min-height: 17px;
 
-    color: #ff7474;
+    color: #ff7777;
 
     font-size: 12px;
 
@@ -223,47 +178,30 @@ body{
     width: 100%;
 
     border: none;
+    border-radius: 9px;
 
-    background:
-        linear-gradient(
-            180deg,
-            var(--red),
-            var(--red-dark)
-        );
+    background: var(--red);
 
-    color: white;
+    color: #fff;
 
-    padding: 14px;
+    padding: 12px;
 
-    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
 
-    font-size: 14px;
-
-    font-weight: 800;
-
-    text-transform: uppercase;
-
-    letter-spacing: .6px;
-
-    cursor: pointer;
-
-    transition: .2s;
+    transition:
+        background .2s,
+        transform .2s;
 }
 
 .btn-login:hover{
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 22px rgba(194,36,0,.25);
-}
-
-.btn-login:active{
-    transform: translateY(0);
+    background: var(--red-hover);
+    transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   ADMIN APP
+   ADMIN
 ========================================================= */
 
 .admin-app{
@@ -272,11 +210,11 @@ body{
 
 
 /* =========================================================
-   HEADER ADMIN
+   HEADER
 ========================================================= */
 
 .admin-header{
-    min-height: 80px;
+    min-height: 72px;
 
     display: flex;
     align-items: center;
@@ -284,66 +222,49 @@ body{
 
     gap: 20px;
 
-    padding: 15px 28px;
+    padding: 12px 26px;
 
-    background: rgba(18,13,11,.93);
+    background: var(--surface);
 
-    backdrop-filter: blur(10px);
-
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--border);
 
     position: sticky;
-
     top: 0;
-
     z-index: 30;
 }
 
 .admin-brand{
     display: flex;
-
     align-items: center;
-
-    gap: 12px;
+    gap: 11px;
 }
 
 .admin-brand-icon{
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
 
     border-radius: 50%;
 
-    display: flex;
+    overflow: hidden;
 
-    align-items: center;
+    flex-shrink: 0;
+}
 
-    justify-content: center;
-
-    font-size: 23px;
-
-    background:
-        radial-gradient(
-            circle,
-            var(--orange),
-            var(--red)
-        );
-
-    box-shadow:
-        0 0 20px rgba(255,106,26,.28);
+.admin-brand-icon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .admin-brand h1{
-    font-size: 19px;
-
-    color: var(--gold);
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .admin-brand p{
     color: var(--text-soft);
-
-    font-size: 12px;
-
-    margin-top: 3px;
+    font-size: 11px;
+    margin-top: 2px;
 }
 
 
@@ -353,53 +274,62 @@ body{
 
 .header-actions{
     display: flex;
-
     align-items: center;
-
-    gap: 10px;
+    gap: 8px;
 }
 
 .btn-pdf,
+.btn-limpar,
 .btn-logout{
-    border: none;
+    border-radius: 8px;
 
-    border-radius: 24px;
+    padding: 9px 13px;
 
-    padding: 10px 18px;
-
-    font-size: 12px;
-
+    font-size: 11px;
     font-weight: 700;
 
-    cursor: pointer;
-
-    transition: .2s;
+    transition:
+        background .2s,
+        border-color .2s,
+        color .2s;
 }
 
 .btn-pdf{
-    background: var(--gold);
+    border: none;
 
-    color: #25160c;
+    background: var(--gold);
+    color: #21170d;
 }
 
 .btn-pdf:hover{
-    transform: translateY(-1px);
+    background: #e4bf7a;
+}
 
-    filter: brightness(1.08);
+.btn-limpar{
+    background: transparent;
+
+    border: 1px solid #6b3028;
+
+    color: #e18a79;
+}
+
+.btn-limpar:hover{
+    background: rgba(194,36,0,.12);
+    border-color: var(--red);
+    color: #fff;
 }
 
 .btn-logout{
     background: transparent;
 
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
 
     color: var(--text-soft);
 }
 
 .btn-logout:hover{
-    border-color: var(--red);
-
-    color: white;
+    border-color: #5d504a;
+    color: #fff;
 }
 
 
@@ -408,69 +338,48 @@ body{
 ========================================================= */
 
 .dashboard-summary{
-    max-width: 1500px;
+    max-width: 1450px;
 
     margin: 0 auto;
 
-    padding: 28px;
+    padding: 24px 26px 18px;
 
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(180px, 1fr));
+        repeat(4, minmax(170px, 1fr));
 
-    gap: 16px;
+    gap: 12px;
 }
 
 .summary-card{
-    background:
-        linear-gradient(
-            145deg,
-            #251913,
-            #1b120f
-        );
+    background: var(--surface);
 
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
-    border-radius: 15px;
-
-    padding: 20px;
-
-    min-height: 105px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    transition: .2s;
-}
-
-.summary-card:hover{
-    transform: translateY(-2px);
-
-    border-color: #54372b;
+    padding: 17px 18px;
 }
 
 .summary-card span{
-    font-size: 12px;
+    display: block;
 
     color: var(--text-soft);
 
-    text-transform: uppercase;
-
+    font-size: 10px;
     font-weight: 700;
 
+    text-transform: uppercase;
     letter-spacing: .5px;
 
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .summary-card strong{
-    font-size: 26px;
+    font-size: 24px;
+    font-weight: 700;
 
-    color: var(--gold);
+    color: var(--text);
 }
 
 
@@ -480,19 +389,19 @@ body{
 
 .orders-board{
     width: 100%;
-
-    max-width: 1500px;
+    max-width: 1450px;
 
     margin: 0 auto;
 
-    padding: 0 28px 35px;
+    padding:
+        0 26px 32px;
 
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(260px, 1fr));
+        repeat(4, minmax(250px, 1fr));
 
-    gap: 18px;
+    gap: 12px;
 
     align-items: start;
 }
@@ -503,123 +412,97 @@ body{
 ========================================================= */
 
 .orders-column{
-    background: rgba(27,18,15,.72);
+    background: var(--surface);
 
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
-    border-radius: 16px;
+    padding: 13px;
 
-    padding: 15px;
-
-    min-height: 450px;
+    min-height: 410px;
 }
 
 
 /* =========================================================
-   CABEÇALHO DAS COLUNAS
+   HEADER COLUNA
 ========================================================= */
 
 .column-header{
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     gap: 10px;
 
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 
-    padding-bottom: 12px;
+    padding-bottom: 10px;
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--border);
 }
 
 .column-header > div{
     display: flex;
-
     align-items: center;
-
     gap: 8px;
 }
 
 .column-header h2{
-    font-size: 15px;
-
+    font-size: 13px;
     font-weight: 700;
 }
 
 .order-count{
-    min-width: 28px;
-
-    height: 28px;
+    min-width: 25px;
+    height: 25px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    background: #291c17;
+    background: var(--surface-2);
 
-    border: 1px solid var(--line);
+    border-radius: 7px;
 
-    border-radius: 50%;
+    font-size: 11px;
 
-    font-size: 12px;
-
-    color: var(--gold);
-
-    font-weight: 700;
+    color: var(--text-soft);
 }
 
 
 /* =========================================================
-   DOT STATUS
+   STATUS
 ========================================================= */
 
 .status-dot{
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 
     border-radius: 50%;
 
     display: inline-block;
-
-    flex-shrink: 0;
 }
 
 .status-dot.recebido{
     background: var(--red);
-
-    box-shadow:
-        0 0 10px rgba(194,36,0,.5);
 }
 
 .status-dot.preparo{
     background: var(--yellow);
-
-    box-shadow:
-        0 0 10px rgba(244,185,66,.45);
 }
 
 .status-dot.entrega{
     background: var(--blue);
-
-    box-shadow:
-        0 0 10px rgba(77,142,216,.4);
 }
 
 .status-dot.finalizado{
     background: var(--green);
-
-    box-shadow:
-        0 0 10px rgba(76,175,106,.4);
 }
 
 
 /* =========================================================
-   LISTA DE PEDIDOS
+   LISTAS
 ========================================================= */
 
 .orders-list{
@@ -627,108 +510,95 @@ body{
 
     flex-direction: column;
 
-    gap: 12px;
+    gap: 9px;
 }
 
-
-/* =========================================================
-   SEM PEDIDOS
-========================================================= */
-
 .empty-orders{
-    padding: 30px 15px;
+    padding: 24px 12px;
 
     text-align: center;
 
-    color: #7f716a;
+    color: #746b66;
 
-    font-size: 13px;
-
-    border: 1px dashed #382822;
-
-    border-radius: 12px;
+    font-size: 12px;
 }
 
 
 /* =========================================================
-   CARD DE PEDIDO
-   admin.js vai gerar isso
+   PEDIDO
 ========================================================= */
 
 .order-card{
-    background: var(--card);
+    background: var(--surface-2);
 
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
+    border-radius: 10px;
 
-    border-radius: 13px;
-
-    padding: 15px;
+    padding: 13px;
 
     cursor: pointer;
 
-    transition: .2s;
-
-    position: relative;
+    transition:
+        border-color .2s,
+        background .2s;
 }
 
 .order-card:hover{
-    background: var(--card-hover);
-
-    border-color: #593a2d;
-
-    transform: translateY(-2px);
+    background: #26211e;
+    border-color: #443a35;
 }
 
 .order-card-header{
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     gap: 10px;
 
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .order-card-id{
     color: var(--gold);
 
-    font-size: 13px;
-
-    font-weight: 800;
+    font-size: 12px;
+    font-weight: 700;
 }
 
 .order-card-time{
     color: var(--text-soft);
 
-    font-size: 11px;
+    font-size: 10px;
 }
 
 .order-client{
     font-weight: 700;
+    font-size: 14px;
 
-    font-size: 15px;
-
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .order-phone{
     color: var(--text-soft);
 
-    font-size: 12px;
-
-    margin-bottom: 12px;
-}
-
-.order-items{
-    padding: 10px 0;
-
-    border-top: 1px dashed var(--line);
-
-    border-bottom: 1px dashed var(--line);
+    font-size: 11px;
 
     margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   ITENS
+========================================================= */
+
+.order-items{
+    padding: 8px 0;
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    margin-bottom: 9px;
 }
 
 .order-item{
@@ -738,35 +608,64 @@ body{
 
     gap: 10px;
 
-    font-size: 12px;
+    font-size: 11px;
 
-    padding: 4px 0;
+    padding: 3px 0;
 }
 
-.order-card-footer{
+
+/* =========================================================
+   HORÁRIO
+========================================================= */
+
+.pedido-horario-destaque{
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     gap: 10px;
 
-    margin-top: 10px;
-}
+    padding: 8px 0;
 
-.order-payment{
     color: var(--text-soft);
 
     font-size: 11px;
 }
 
+.pedido-horario-destaque strong{
+    color: var(--text);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+.order-card-footer{
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 6px;
+}
+
+.order-payment{
+    color: var(--text-soft);
+
+    font-size: 10px;
+}
+
 .order-total{
-    color: var(--gold);
+    color: var(--text);
 
-    font-size: 15px;
-
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 
@@ -777,62 +676,58 @@ body{
 .order-actions{
     display: flex;
 
-    gap: 8px;
+    gap: 7px;
 
-    margin-top: 13px;
+    margin-top: 11px;
 }
 
 .order-actions button{
     flex: 1;
 
     border: none;
+    border-radius: 7px;
 
-    border-radius: 8px;
+    padding: 8px;
 
-    padding: 9px 7px;
-
-    cursor: pointer;
-
-    font-size: 11px;
-
+    font-size: 10px;
     font-weight: 700;
 
-    transition: .2s;
+    transition: background .2s;
 }
 
 .btn-accept{
     background: var(--red);
 
-    color: white;
+    color: #fff;
 }
 
 .btn-accept:hover{
-    background: #e02c08;
+    background: var(--red-hover);
 }
 
 .btn-next{
     background: var(--gold);
 
-    color: #21140d;
+    color: #21170d;
 }
 
 .btn-next:hover{
-    filter: brightness(1.08);
+    background: #e4bf7a;
 }
 
 .btn-finish{
     background: var(--green);
 
-    color: white;
+    color: #fff;
 }
 
 .btn-finish:hover{
-    filter: brightness(1.08);
+    background: #58b876;
 }
 
 
 /* =========================================================
-   MODAL DETALHES
+   MODAL
 ========================================================= */
 
 .admin-overlay{
@@ -840,14 +735,11 @@ body{
 
     inset: 0;
 
-    background: rgba(5,3,2,.78);
-
-    backdrop-filter: blur(4px);
+    background: rgba(0,0,0,.72);
 
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 20px;
@@ -862,84 +754,61 @@ body{
 .pedido-modal{
     width: 100%;
 
-    max-width: 560px;
-
-    max-height: 90vh;
+    max-width: 520px;
+    max-height: 88vh;
 
     overflow-y: auto;
 
-    background: var(--bg-soft);
+    background: var(--surface);
 
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
+    border-radius: 14px;
 
-    border-radius: 18px;
-
-    padding: 26px;
+    padding: 24px;
 
     position: relative;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.5);
-
-    animation: abrirModal .25s ease;
-}
-
-@keyframes abrirModal{
-
-    from{
-        opacity: 0;
-        transform: translateY(18px) scale(.98);
-    }
-
-    to{
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-
 }
 
 .close-pedido{
     position: absolute;
 
-    top: 15px;
+    top: 13px;
+    right: 13px;
 
-    right: 15px;
+    width: 31px;
+    height: 31px;
 
-    width: 34px;
-    height: 34px;
+    border-radius: 7px;
 
-    border-radius: 50%;
+    border: 1px solid var(--border);
 
-    border: 1px solid var(--line);
+    background: transparent;
 
-    background: #211612;
+    color: var(--text-soft);
 
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .close-pedido:hover{
-    border-color: var(--red);
-
-    background: #2a1711;
+    color: #fff;
+    border-color: #5a4c45;
 }
 
 
 /* =========================================================
-   CONTEÚDO DO MODAL
+   DETALHES
 ========================================================= */
 
 #pedido-detalhes{
-    padding-top: 12px;
+    padding-top: 8px;
 }
 
 #pedido-detalhes h2{
-    color: var(--gold);
+    color: var(--text);
 
-    margin-bottom: 20px;
+    font-size: 18px;
+
+    margin-bottom: 18px;
 }
 
 .detail-row{
@@ -947,13 +816,13 @@ body{
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 18px;
 
-    padding: 10px 0;
+    padding: 9px 0;
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--border);
 
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .detail-row span:first-child{
@@ -963,36 +832,41 @@ body{
 .detail-row span:last-child{
     text-align: right;
 
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .detail-total{
-    font-size: 18px;
+    font-size: 16px;
 
     color: var(--gold);
+
+    border-bottom: none;
+
+    padding-top: 14px;
 }
 
 
 /* =========================================================
-   RODAPÉ
+   FOOTER
 ========================================================= */
 
 .admin-footer{
+    max-width: 1450px;
+
+    margin: 0 auto;
+
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     gap: 15px;
 
-    padding: 20px 28px;
-
-    border-top: 1px solid var(--line);
+    padding: 16px 26px;
 
     color: var(--text-soft);
 
-    font-size: 11px;
+    font-size: 10px;
 }
 
 #status-conexao{
@@ -1007,22 +881,22 @@ body{
 ========================================================= */
 
 ::-webkit-scrollbar{
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track{
-    background: #130d0b;
+    background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb{
-    background: #4a3127;
+    background: #403733;
 
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
-    background: #684235;
+    background: #544943;
 }
 
 
@@ -1056,55 +930,68 @@ body{
 
         flex-direction: column;
 
-        align-items: flex-start;
+        align-items: stretch;
 
-        padding: 18px;
+        padding: 14px;
+    }
+
+    .admin-brand{
+        width: 100%;
     }
 
     .header-actions{
         width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .btn-pdf,
-    .btn-logout{
-        flex: 1;
+    .btn-limpar{
+        width: 100%;
     }
 
+    .btn-logout{
+        grid-column: 1 / -1;
+
+        width: 100%;
+    }
 
     .dashboard-summary{
-        padding: 18px;
+        padding: 16px 14px;
 
         grid-template-columns:
             repeat(2, 1fr);
 
-        gap: 10px;
+        gap: 8px;
     }
 
     .summary-card{
-        min-height: 90px;
+        padding: 14px;
 
-        padding: 15px;
+        min-height: 78px;
     }
 
     .summary-card strong{
-        font-size: 21px;
+        font-size: 19px;
     }
-
 
     .orders-board{
         padding:
-            0 18px 25px;
+            0 14px 24px;
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .orders-column{
         min-height: auto;
     }
 
-
     .admin-footer{
-        padding: 18px;
+        padding: 15px 14px;
 
         flex-direction: column;
 
@@ -1121,34 +1008,33 @@ body{
 @media(max-width:460px){
 
     .login-box{
-        padding: 26px 20px;
+        padding: 25px 18px;
     }
 
     .login-logo{
-        width: 82px;
-        height: 82px;
+        width: 76px;
+        height: 76px;
     }
 
     .login-box h1{
-        font-size: 21px;
+        font-size: 20px;
     }
 
-
     .dashboard-summary{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .summary-card span{
-        font-size: 10px;
+        font-size: 9px;
     }
 
     .summary-card strong{
-        font-size: 18px;
+        font-size: 17px;
     }
 
-
     .pedido-modal{
-        padding: 22px 18px;
+        padding: 20px 16px;
     }
 
 }
