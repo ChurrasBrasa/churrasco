@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Churrasco na Brasa para aniversários, casamentos, eventos corporativos e outras comemorações.">
+    <meta name="description" content="Churrasco na Brasa para aniversários, casamentos, confraternizações e outros eventos.">
     <title>Eventos | Churrasco na Brasa</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="eventos.css">
     <link rel="icon" href="img/LOGO.jpg" type="image/x-icon">
 </head>
 <body>
 
 <header id="header">
-    <div class="interface flex">
+    <div class="interface">
         <a class="logo" href="index.html" aria-label="Voltar para a página inicial">
             <img src="img/LOGO.jpg" alt="Logo Churrasco na Brasa">
         </a>
@@ -29,91 +29,80 @@
             </ul>
         </nav>
 
-        <a class="contato-btn" href="https://wa.me/5542988153468" target="_blank" rel="noopener noreferrer">
-            Contato
-        </a>
+        <div class="btn-contato">
+            <a class="contato-btn" href="https://wa.me/5542988153468" target="_blank" rel="noopener noreferrer">
+                Contato
+            </a>
+        </div>
     </div>
 </header>
 
 <main>
     <section class="hero-eventos">
-        <div class="hero-overlay"></div>
-        <div class="brasas" aria-hidden="true"></div>
+        <div class="hero-banner" role="img" aria-label="Churrasco na Brasa para eventos"></div>
 
         <div class="hero-content reveal">
-        
+            <p class="hero-resumo">Churrasco para aniversários, casamentos, confraternizações e outros momentos especiais.</p>
 
             <div class="hero-actions">
                 <a class="btn-principal" href="https://wa.me/5542988153468?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20um%20evento." target="_blank" rel="noopener noreferrer">
                     <img src="img/whatsapp.png" alt="">
                     Solicitar orçamento
                 </a>
-                <a class="btn-secundario" href="#tipos-eventos">Conhecer opções</a>
+                <a class="btn-secundario" href="#tipos-eventos">Ver opções</a>
             </div>
         </div>
-
-        <a class="scroll-indicator" href="#tipos-eventos" aria-label="Ir para os tipos de eventos">
-            <span></span>
-        </a>
     </section>
 
     <section class="numeros reveal" aria-label="Diferenciais do atendimento">
         <div class="numero-card">
-            <strong data-contador="4">0</strong>
+            <strong>4</strong>
             <span>tipos de eventos em destaque</span>
         </div>
         <div class="numero-card">
             <strong>100%</strong>
-            <span>atendimento personalizado</span>
+            <span>orçamento pensado para cada evento</span>
         </div>
         <div class="numero-card">
             <strong>🔥</strong>
-            <span>sabor preparado na brasa</span>
+            <span>churrasco preparado na brasa</span>
         </div>
     </section>
 
     <section class="eventos-section" id="tipos-eventos">
         <div class="section-heading reveal">
-            <span class="eyebrow">PARA CADA MOMENTO</span>
-            <h2>Um churrasco à altura da ocasião</h2>
-            <p>Você escolhe o motivo da comemoração. Nós ajudamos a transformar o encontro em uma experiência cheia de sabor.</p>
+            <span class="eyebrow">EVENTOS</span>
+            <h1>Churrasco para diferentes comemorações.</h1>
+            <p>Você conta o que está planejando e a gente organiza o atendimento de acordo com o tamanho e as necessidades do evento.</p>
         </div>
 
         <div class="cards-eventos">
-            <article class="evento-card reveal" data-tilt>
-                <div class="card-glow"></div>
+            <article class="evento-card reveal">
                 <div class="icone"><img src="img/bolo.png" alt="Ícone de aniversário"></div>
                 <span class="card-numero">01</span>
-                <h3>Aniversários</h3>
-                <p>Comemore momentos especiais com um churrasco preparado com carinho, carnes selecionadas e acompanhamentos deliciosos.</p>
-                <span class="card-link">Celebre com sabor <b>→</b></span>
+                <h2>Aniversários</h2>
+                <p>Para festas em família ou comemorações maiores, com carnes e acompanhamentos combinados conforme o número de convidados.</p>
             </article>
 
-            <article class="evento-card reveal" data-tilt>
-                <div class="card-glow"></div>
+            <article class="evento-card reveal">
                 <div class="icone"><img src="img/ring.png" alt="Ícone de casamento"></div>
                 <span class="card-numero">02</span>
-                <h3>Casamentos</h3>
-                <p>Um serviço pensado para tornar o grande dia ainda mais acolhedor, saboroso e inesquecível para todos os convidados.</p>
-                <span class="card-link">Um dia marcante <b>→</b></span>
+                <h2>Casamentos</h2>
+                <p>Uma opção de churrasco para celebrar o dia com os convidados, com atendimento ajustado ao local e ao formato da recepção.</p>
             </article>
 
-            <article class="evento-card reveal" data-tilt>
-                <div class="card-glow"></div>
+            <article class="evento-card reveal">
                 <div class="icone"><img src="img/store.png" alt="Ícone de evento corporativo"></div>
                 <span class="card-numero">03</span>
-                <h3>Eventos Corporativos</h3>
-                <p>Atendimento para empresas, reuniões, confraternizações e encontros profissionais de diferentes tamanhos.</p>
-                <span class="card-link">Equipe bem servida <b>→</b></span>
+                <h2>Confraternizações</h2>
+                <p>Atendimento para empresas, equipes, reuniões e encontros de fim de ano, com orçamento de acordo com a quantidade de pessoas.</p>
             </article>
 
-            <article class="evento-card reveal" data-tilt>
-                <div class="card-glow"></div>
+            <article class="evento-card reveal">
                 <div class="icone"><img src="img/party.png" alt="Ícone de festa"></div>
                 <span class="card-numero">04</span>
-                <h3>Outros Eventos</h3>
-                <p>Formaturas, festas familiares, encontros, confraternizações e qualquer celebração que mereça um excelente churrasco.</p>
-                <span class="card-link">Conte sua ideia <b>→</b></span>
+                <h2>Outras ocasiões</h2>
+                <p>Formaturas, encontros de família, festas e outras comemorações. É só contar a ideia para montarmos uma proposta.</p>
             </article>
         </div>
     </section>
@@ -121,30 +110,41 @@
     <section class="experiencia-section">
         <div class="experiencia-imagem reveal">
             <div class="imagem-moldura">
-                <img src="img/ops.png" alt="Churrasco servido em uma tábua">
+                <img src="img/ops.png" alt="Churrasco servido em uma tábua" loading="lazy">
                 <span class="selo">Feito<br>na brasa</span>
             </div>
         </div>
 
         <div class="experiencia-conteudo reveal">
-            <span class="eyebrow">ATENDIMENTO PERSONALIZADO</span>
-            <h2>Seu evento, do seu jeito.</h2>
+            <span class="eyebrow">ATENDIMENTO</span>
+            <h2>O orçamento acompanha o seu evento.</h2>
             <p>
-                Cada comemoração possui um tamanho, um público e uma história. Por isso, o atendimento é personalizado para entender a data, o local, a quantidade de pessoas e o tipo de evento.
+                Antes de definir o serviço, conversamos sobre a data, o local, a quantidade de pessoas e o que você pretende servir. Assim, o orçamento fica mais próximo do que você realmente precisa.
             </p>
 
             <div class="diferenciais">
                 <div class="diferencial">
                     <span>01</span>
-                    <div><h3>Carnes selecionadas</h3><p>Qualidade e sabor em cada porção.</p></div>
+                    <div>
+                        <h3>Carnes e acompanhamentos</h3>
+                        <p>As opções são combinadas conforme o evento.</p>
+                    </div>
                 </div>
+
                 <div class="diferencial">
                     <span>02</span>
-                    <div><h3>Orçamento personalizado</h3><p>Planejado conforme as necessidades do evento.</p></div>
+                    <div>
+                        <h3>Quantidade de convidados</h3>
+                        <p>O planejamento considera o número de pessoas.</p>
+                    </div>
                 </div>
+
                 <div class="diferencial">
                     <span>03</span>
-                    <div><h3>Atendimento dedicado</h3><p>Contato simples e direto pelo WhatsApp.</p></div>
+                    <div>
+                        <h3>Contato direto</h3>
+                        <p>Os detalhes podem ser combinados pelo WhatsApp.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,102 +152,84 @@
 
     <section class="como-funciona">
         <div class="section-heading reveal">
-            <span class="eyebrow">SIMPLES E DIRETO</span>
-            <h2>Como solicitar seu orçamento</h2>
+            <span class="eyebrow">COMO FUNCIONA</span>
+            <h2>Peça seu orçamento em três passos.</h2>
         </div>
 
         <div class="passos">
-            <div class="passo reveal"><span>1</span><h3>Conte sobre o evento</h3><p>Informe o tipo de comemoração e a data desejada.</p></div>
-            <div class="passo reveal"><span>2</span><h3>Envie os detalhes</h3><p>Local, quantidade de pessoas e preferências principais.</p></div>
-            <div class="passo reveal"><span>3</span><h3>Receba o orçamento</h3><p>Preparamos uma proposta personalizada para você.</p></div>
+            <div class="passo reveal">
+                <span>1</span>
+                <div>
+                    <h3>Conte sobre o evento</h3>
+                    <p>Informe a data e o tipo de comemoração.</p>
+                </div>
+            </div>
+
+            <div class="passo reveal">
+                <span>2</span>
+                <div>
+                    <h3>Passe os detalhes</h3>
+                    <p>Diga o local e a quantidade aproximada de convidados.</p>
+                </div>
+            </div>
+
+            <div class="passo reveal">
+                <span>3</span>
+                <div>
+                    <h3>Receba a proposta</h3>
+                    <p>Com essas informações, preparamos o orçamento.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="cta-final reveal">
-        <div class="cta-fogo" aria-hidden="true">🔥</div>
         <div>
-            <span class="eyebrow">VAMOS ACENDER ESSA IDEIA?</span>
-            <h2>Transforme seu próximo evento em uma experiência inesquecível.</h2>
-            <p>Fale com o Churrasco na Brasa pelo WhatsApp e solicite seu orçamento.</p>
+            <span class="eyebrow">ORÇAMENTO</span>
+            <h2>Vai fazer um evento? Fale com a gente.</h2>
+            <p>Envie os detalhes pelo WhatsApp para conversarmos sobre o atendimento.</p>
         </div>
+
         <a class="whatsapp" href="https://wa.me/5542988153468?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20um%20evento." target="_blank" rel="noopener noreferrer">
             <img src="img/whatsapp.png" alt="">
-            <span>Solicitar orçamento agora</span>
+            <span>Solicitar orçamento</span>
         </a>
     </section>
 </main>
 
-<footer class="footer">
-
+<footer class="footer" id="contato">
     <div class="footer-container">
-
         <div class="footer-logo">
-
             <img src="img/LOGO.jpg" alt="Logo Churrasco na Brasa">
-
             <h2>Churrasco na Brasa</h2>
-
-            <p>
-                Sabor, qualidade e tradição em cada churrasco.
-            </p>
-
+            <p>Sabor, qualidade e tradição em cada churrasco.</p>
         </div>
 
         <div class="footer-links">
-
             <h3>Navegação</h3>
-
-            <a href="#">Início</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#cardapio">Cardápio</a>
+            <a href="index.html">Início</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="index.html#cardapio">Cardápio</a>
             <a href="eventos.html">Eventos</a>
             <a href="comentarios.html">Comentários</a>
             <a href="admin.html">ADM</a>
-
         </div>
 
         <div class="footer-dev">
+            <h3>Desenvolvedora</h3>
+            <p>Este site foi desenvolvido por <strong>Melissa Rossa Pereira</strong>.</p>
+            <p class="dev-texto">Para entrar em contato comigo:</p>
 
-            <h3> Desenvolvedora</h3>
-
-            <p>
-                Este site foi desenvolvido por
-                <strong>Melissa Rossa Pereira</strong>.
-            </p>
-
-            <p class="dev-texto">
-                Para entrar em contato comigo:
-            </p>
-
-            <a href="https://github.com/Melissa-RossaP" target="_blank">
-                 GitHub
-            </a>
-
-            <a href="https://wa.me/5542999106956" target="_blank">
-                 WhatsApp
-            </a>
-
-            <a href="https://instagram.com/m3l.r1" target="_blank">
-                 Instagram
-            </a>
-
+            <a href="https://github.com/Melissa-RossaP" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://wa.me/5542999106956" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://instagram.com/m3l.r1" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
-
     </div>
 
     <div class="footer-bottom">
-
-        <p>
-            © 2026 Churrasco na Brasa • Todos os direitos reservados.
-        </p>
-
-        <p>
-            Desenvolvido com ❤️ por
-            <strong>Melissa Rossa Pereira</strong>
-        </p>
-
+        <p>© 2026 Churrasco na Brasa • Todos os direitos reservados.</p>
+        <p>Desenvolvido com ❤️ por <strong>Melissa Rossa Pereira</strong></p>
     </div>
-
 </footer>
 
 <a class="whatsapp-flutuante" href="https://wa.me/5542988153468" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
