@@ -1172,3 +1172,37 @@ if (pedidoAnterior) {
     renderCart();
 });
 
+let eventoInstalacao;
+
+const btnInstalar = document.getElementById("btn-instalar");
+
+window.addEventListener("beforeinstallprompt", (event) => {
+
+    event.preventDefault();
+
+    eventoInstalacao = event;
+
+    btnInstalar.hidden = false;
+});
+
+
+btnInstalar?.addEventListener("click", async () => {
+
+    if (!eventoInstalacao) return;
+
+    eventoInstalacao.prompt();
+
+    await eventoInstalacao.userChoice;
+
+    eventoInstalacao = null;
+
+    btnInstalar.hidden = true;
+});
+
+
+window.addEventListener("appinstalled", () => {
+
+    btnInstalar.hidden = true;
+
+    eventoInstalacao = null;
+});

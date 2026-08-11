@@ -4148,3 +4148,22 @@ img{
     }
 }
 
+.btn-instalar{
+    border:none;
+    border-radius:999px;
+
+    padding:10px 18px;
+
+    background:#c22400;
+    color:#fff;
+
+    font-weight:600;
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.btn-instalar:hover{
+    background:#e74418;
+    transform:translateY(-2px);
+}
